@@ -1,0 +1,20 @@
+{
+  "name": "math-master-site",
+  "version": "1.0.0",
+  "description": "고등수학과 대학교 수학을 정복할 수 있는 종합 학습 사이트",
+  "scripts": {
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "preview": "npx vite preview"
+  },
+  "keywords": [
+    "수학",
+    "학습",
+    "교육"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.5.0"
+  }
+}

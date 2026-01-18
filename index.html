@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 수학 완전정복</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <!-- Plotly for graphs -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>📚 수학 완전정복</h1>
+                <p class="subtitle">단계별 개념 학습부터 어려운 문제까지</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <h3>고등수학</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-subject="math-high-1">
+                            <i class="fas fa-book"></i> 수학 상
+                        </li>
+                        <li class="nav-item" data-subject="math-high-2">
+                            <i class="fas fa-book"></i> 수학 하
+                        </li>
+                        <li class="nav-item" data-subject="math-1">
+                            <i class="fas fa-book"></i> 수학 1
+                        </li>
+                        <li class="nav-item" data-subject="math-2">
+                            <i class="fas fa-book"></i> 수학 2
+                        </li>
+                        <li class="nav-item" data-subject="calculus">
+                            <i class="fas fa-chart-line"></i> 미적분
+                        </li>
+                        <li class="nav-item" data-subject="geometry">
+                            <i class="fas fa-shapes"></i> 기하
+                        </li>
+                        <li class="nav-item" data-subject="probability">
+                            <i class="fas fa-dice"></i> 확률과 통계
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>대학교 수학</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-subject="linear-algebra">
+                            <i class="fas fa-project-diagram"></i> 선형대수학
+                        </li>
+                        <li class="nav-item" data-subject="multivariable-calculus">
+                            <i class="fas fa-cube"></i> 다변수 미적분학
+                        </li>
+                        <li class="nav-item" data-subject="differential-equations">
+                            <i class="fas fa-wave-square"></i> 미분방정식
+                        </li>
+                        <li class="nav-item" data-subject="real-analysis">
+                            <i class="fas fa-infinity"></i> 해석학
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="concept">
+                    <i class="fas fa-book-open"></i> 개념 학습
+                </button>
+                <button class="tab-btn" data-tab="problem">
+                    <i class="fas fa-pencil-alt"></i> 문제 풀기
+                </button>
+                <button class="tab-btn" data-tab="question">
+                    <i class="fas fa-question-circle"></i> 질문하기
+                </button>
+                <button class="tab-btn" data-tab="notes">
+                    <i class="fas fa-sticky-note"></i> 복습 노트
+                </button>
+            </div>
+
+            <!-- Concept Learning Tab -->
+            <div id="concept-tab" class="tab-content active">
+                <div class="welcome-message">
+                    <h2>👋 수학 학습을 시작하세요!</h2>
+                    <p>왼쪽에서 학습하고 싶은 챕터를 선택하세요. 각 개념은 단계별로 자세히 설명되어 있습니다.</p>
+                </div>
+                
+                <div id="concept-content" class="content-area">
+                    <!-- Content will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Problem Solving Tab -->
+            <div id="problem-tab" class="tab-content">
+                <div class="problem-controls">
+                    <div class="filter-group">
+                        <label>난이도:</label>
+                        <select id="difficulty-filter">
+                            <option value="all">전체</option>
+                            <option value="easy">쉬움</option>
+                            <option value="medium">보통</option>
+                            <option value="hard">어려움</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>주제:</label>
+                        <select id="topic-filter">
+                            <option value="all">전체</option>
+                            <option value="math-high-1">수학 상</option>
+                            <option value="math-high-2">수학 하</option>
+                            <option value="math-1">수학 1</option>
+                            <option value="math-2">수학 2</option>
+                            <option value="calculus">미적분</option>
+                            <option value="geometry">기하</option>
+                            <option value="probability">확률과 통계</option>
+                            <option value="linear-algebra">선형대수학</option>
+                            <option value="multivariable-calculus">다변수 미적분학</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="load-problem-btn">
+                        <i class="fas fa-sync"></i> 문제 불러오기
+                    </button>
+                </div>
+                
+                <div id="problem-content" class="content-area">
+                    <div class="problem-display">
+                        <div class="problem-statement">
+                            <h3>문제</h3>
+                            <div id="problem-text"></div>
+                        </div>
+                        <div class="answer-section">
+                            <label>답안:</label>
+                            <textarea id="answer-input" placeholder="답을 입력하세요"></textarea>
+                        </div>
+                        <div class="problem-actions">
+                            <button class="btn-secondary" id="check-answer-btn">정답 확인</button>
+                            <button class="btn-secondary" id="show-solution-btn">해설 보기</button>
+                            <button class="btn-primary" id="next-problem-btn">다음 문제</button>
+                        </div>
+                        <div id="solution-display" class="solution-display hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Tab -->
+            <div id="question-tab" class="tab-content">
+                <div class="question-area">
+                    <h2>💬 모르는 것을 물어보세요</h2>
+                    <div class="question-form">
+                        <textarea id="question-input" placeholder="질문을 입력하세요..."></textarea>
+                        <button class="btn-primary" id="submit-question-btn">질문하기</button>
+                    </div>
+                    <div id="questions-list" class="questions-list">
+                        <!-- Questions will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Notes Tab -->
+            <div id="notes-tab" class="tab-content">
+                <div class="notes-header">
+                    <h2>📝 복습 노트</h2>
+                    <button class="btn-secondary" id="clear-notes-btn">노트 초기화</button>
+                </div>
+                <div id="notes-content" class="notes-content">
+                    <p class="empty-message">아직 복습 노트가 없습니다. 문제를 풀면서 중요한 내용을 저장하세요!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chapter Selection Modal -->
+    <div id="chapter-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">챕터 선택</h2>
+            <div id="chapter-list" class="chapter-list">
+                <!-- Chapters will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/concept.js"></script>
+    <script src="js/problem.js"></script>
+    <script src="js/question.js"></script>
+    <script src="js/notes.js"></script>
+</body>
+</html>
