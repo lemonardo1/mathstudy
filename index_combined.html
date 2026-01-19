@@ -1,3 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 수학 완전정복</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <!-- Plotly for graphs -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #7b68ee;
+    --accent-color: #50c878;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --border-color: #dee2e6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --text-primary: #e9ecef;
+    --text-secondary: #adb5bd;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3a3a3a;
+    --border-color: #495057;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+}
+
+.sidebar-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.nav-section {
+    margin-bottom: 2rem;
+}
+
+.nav-section h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+    font-weight: 600;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+}
+
+.nav-item i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+    max-width: calc(100% - 280px);
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    border-bottom: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-btn:hover {
+    color: var(--primary-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Welcome Message */
+.welcome-message {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.welcome-message h2 {
+    margin-bottom: 0.5rem;
+}
+
+/* Content Area */
+.content-area {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    min-height: 500px;
+}
+
+/* Concept Content */
+.concept-section {
+    margin-bottom: 3rem;
+}
+
+.concept-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.concept-section h3 {
+    color: var(--secondary-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.concept-section p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.concept-section ul, .concept-section ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.concept-section li {
+    margin-bottom: 0.5rem;
+    line-height: 1.8;
+}
+
+/* Table of Contents */
+.table-of-contents {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.toc-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toc-toggle-all {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toc-toggle-all:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-list li {
+    margin-bottom: 0.5rem;
+}
+
+.toc-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 6px;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+}
+
+.toc-link:hover {
+    background: rgba(74, 144, 226, 0.1);
+    border-left-color: var(--primary-color);
+    transform: translateX(5px);
+    color: var(--primary-color);
+}
+
+/* Collapsible Sections */
+.concept-section-collapsible {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.section-toggle {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+.section-toggle:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.section-toggle i {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.section-content {
+    padding: 0 1.5rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    max-height: 0;
+}
+
+.section-content.collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.section-content:not(.collapsed) {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    max-height: 5000px;
+}
+
+.section-content h3 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.section-content h4 {
+    color: var(--text-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.section-content p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.section-content ul, .section-content ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.8;
+}
+
+/* Math Display */
+.math-display {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--primary-color);
+    overflow-x: auto;
+}
+
+.math-display .MathJax {
+    font-size: 1.1em;
+}
+
+/* Graph Container */
+.graph-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.graph-container h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+/* Example Box */
+.example-box {
+    background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+    border-left: 4px solid #ff9800;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.example-box h4 {
+    color: #e65100;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+/* Problem Controls */
+.problem-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.filter-group select {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-group select:hover {
+    border-color: var(--primary-color);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+/* Problem Display */
+.problem-display {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.problem-statement {
+    margin-bottom: 2rem;
+}
+
+.problem-statement h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+#problem-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.answer-section {
+    margin-bottom: 2rem;
+}
+
+.answer-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+#answer-input {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+#answer-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.problem-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.solution-display {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+    margin-top: 2rem;
+}
+
+.solution-display.hidden {
+    display: none;
+}
+
+.solution-display h4 {
+    color: #2e7d32;
+    margin-bottom: 1rem;
+}
+
+/* Question Area */
+.question-area {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.question-form {
+    margin-bottom: 2rem;
+}
+
+.question-form textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+.questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.question-item {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.question-header h4 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.question-header small {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.question-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.answers-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.answers-section h5 {
+    color: var(--secondary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.answer-item {
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--accent-color);
+}
+
+.answer-item p {
+    margin-bottom: 0.5rem;
+}
+
+.answer-item small {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Notes */
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.notes-content {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    min-height: 400px;
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 3rem;
+}
+
+.note-item {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.note-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Modal */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--text-primary);
+}
+
+.chapter-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.chapter-item {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.chapter-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 1rem;
+    }
+    
+    .tab-nav {
+        flex-wrap: wrap;
+    }
+    
+    .problem-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .chapter-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Problem Meta Styles */
+.problem-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.difficulty-badge, .topic-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.difficulty-badge.easy {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.difficulty-badge.medium {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.difficulty-badge.hard {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.topic-badge {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.problem-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.answer-result {
+    margin-top: 1rem;
+}
+
+.answer-result h4 {
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.solution-content {
+    margin-top: 1rem;
+}
+
+.solution-content p {
+    margin-bottom: 0.75rem;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.delete-note-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.delete-note-btn:hover {
+    background-color: #ffe6e6;
+}
+
+.note-meta {
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Print Styles */
+@media print {
+    .sidebar, .tab-nav, .problem-controls, .problem-actions {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>📚 수학 완전정복</h1>
+                <p class="subtitle">단계별 개념 학습부터 어려운 문제까지</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <h3>고등수학</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-subject="math-high-1">
+                            <i class="fas fa-book"></i> 수학 상
+                        </li>
+                        <li class="nav-item" data-subject="math-high-2">
+                            <i class="fas fa-book"></i> 수학 하
+                        </li>
+                        <li class="nav-item" data-subject="math-1">
+                            <i class="fas fa-book"></i> 수학 1
+                        </li>
+                        <li class="nav-item" data-subject="math-2">
+                            <i class="fas fa-book"></i> 수학 2
+                        </li>
+                        <li class="nav-item" data-subject="calculus">
+                            <i class="fas fa-chart-line"></i> 미적분
+                        </li>
+                        <li class="nav-item" data-subject="geometry">
+                            <i class="fas fa-shapes"></i> 기하
+                        </li>
+                        <li class="nav-item" data-subject="probability">
+                            <i class="fas fa-dice"></i> 확률과 통계
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3>대학교 수학</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item" data-subject="linear-algebra">
+                            <i class="fas fa-project-diagram"></i> 선형대수학
+                        </li>
+                        <li class="nav-item" data-subject="multivariable-calculus">
+                            <i class="fas fa-cube"></i> 다변수 미적분학
+                        </li>
+                        <li class="nav-item" data-subject="differential-equations">
+                            <i class="fas fa-wave-square"></i> 미분방정식
+                        </li>
+                        <li class="nav-item" data-subject="real-analysis">
+                            <i class="fas fa-infinity"></i> 해석학
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="concept">
+                    <i class="fas fa-book-open"></i> 개념 학습
+                </button>
+                <button class="tab-btn" data-tab="problem">
+                    <i class="fas fa-pencil-alt"></i> 문제 풀기
+                </button>
+                <button class="tab-btn" data-tab="question">
+                    <i class="fas fa-question-circle"></i> 질문하기
+                </button>
+                <button class="tab-btn" data-tab="notes">
+                    <i class="fas fa-sticky-note"></i> 복습 노트
+                </button>
+            </div>
+
+            <!-- Concept Learning Tab -->
+            <div id="concept-tab" class="tab-content active">
+                <div class="welcome-message">
+                    <h2>👋 수학 학습을 시작하세요!</h2>
+                    <p>왼쪽에서 학습하고 싶은 챕터를 선택하세요. 각 개념은 단계별로 자세히 설명되어 있습니다.</p>
+                </div>
+                
+                <div id="concept-content" class="content-area">
+                    <!-- Content will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Problem Solving Tab -->
+            <div id="problem-tab" class="tab-content">
+                <div class="problem-controls">
+                    <div class="filter-group">
+                        <label>난이도:</label>
+                        <select id="difficulty-filter">
+                            <option value="all">전체</option>
+                            <option value="easy">쉬움</option>
+                            <option value="medium">보통</option>
+                            <option value="hard">어려움</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>주제:</label>
+                        <select id="topic-filter">
+                            <option value="all">전체</option>
+                            <option value="math-high-1">수학 상</option>
+                            <option value="math-high-2">수학 하</option>
+                            <option value="math-1">수학 1</option>
+                            <option value="math-2">수학 2</option>
+                            <option value="calculus">미적분</option>
+                            <option value="geometry">기하</option>
+                            <option value="probability">확률과 통계</option>
+                            <option value="linear-algebra">선형대수학</option>
+                            <option value="multivariable-calculus">다변수 미적분학</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" id="load-problem-btn">
+                        <i class="fas fa-sync"></i> 문제 불러오기
+                    </button>
+                </div>
+                
+                <div id="problem-content" class="content-area">
+                    <div class="problem-display">
+                        <div class="problem-statement">
+                            <h3>문제</h3>
+                            <div id="problem-text"></div>
+                        </div>
+                        <div class="answer-section">
+                            <label>답안:</label>
+                            <textarea id="answer-input" placeholder="답을 입력하세요"></textarea>
+                        </div>
+                        <div class="problem-actions">
+                            <button class="btn-secondary" id="check-answer-btn">정답 확인</button>
+                            <button class="btn-secondary" id="show-solution-btn">해설 보기</button>
+                            <button class="btn-primary" id="next-problem-btn">다음 문제</button>
+                        </div>
+                        <div id="solution-display" class="solution-display hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Tab -->
+            <div id="question-tab" class="tab-content">
+                <div class="question-area">
+                    <h2>💬 모르는 것을 물어보세요</h2>
+                    <div class="question-form">
+                        <textarea id="question-input" placeholder="질문을 입력하세요..."></textarea>
+                        <button class="btn-primary" id="submit-question-btn">질문하기</button>
+                    </div>
+                    <div id="questions-list" class="questions-list">
+                        <!-- Questions will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Notes Tab -->
+            <div id="notes-tab" class="tab-content">
+                <div class="notes-header">
+                    <h2>📝 복습 노트</h2>
+                    <button class="btn-secondary" id="clear-notes-btn">노트 초기화</button>
+                </div>
+                <div id="notes-content" class="notes-content">
+                    <p class="empty-message">아직 복습 노트가 없습니다. 문제를 풀면서 중요한 내용을 저장하세요!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chapter Selection Modal -->
+    <div id="chapter-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">챕터 선택</h2>
+            <div id="chapter-list" class="chapter-list">
+                <!-- Chapters will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script>
 // 수학 콘텐츠 데이터베이스
 const mathData = {
     'math-high-1': {
@@ -169,177 +1268,20 @@ const mathData = {
                     </ul>
                     
                     <h3>3. 고차방정식</h3>
-                    <p>삼차 이상의 방정식을 고차방정식이라고 합니다. 고차방정식의 대표적인 예로 삼차방정식과 사차방정식이 있습니다.</p>
-                    
-                    <h4>3.1 삼차방정식</h4>
-                    <p>삼차방정식 $ax^3 + bx^2 + cx + d = 0$ ($a \\neq 0$)을 푸는 방법은 다음과 같습니다:</p>
-                    
-                    <h5>3.1.1 인수분해를 이용한 방법</h5>
-                    <p>가장 기본적인 방법으로, 공통인수나 인수분해 공식을 이용하여 방정식을 인수분해한 후 각 인수를 0으로 만드는 해를 구합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 1</h4>
-                        <p>방정식 $x^3 - 3x^2 + 2x = 0$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$x^3 - 3x^2 + 2x = x(x^2 - 3x + 2) = x(x-1)(x-2) = 0$</p>
-                        <p>따라서 $x = 0$ 또는 $x = 1$ 또는 $x = 2$</p>
-                    </div>
-                    
-                    <h5>3.1.2 조립제법을 이용한 방법</h5>
-                    <p>한 근을 알 때, 조립제법을 이용하여 방정식을 낮은 차수로 인수분해할 수 있습니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 2</h4>
-                        <p>방정식 $x^3 - 6x^2 + 11x - 6 = 0$에서 $x = 1$이 한 근임을 알고 있을 때, 나머지 근을 구하시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>조립제법을 이용하면:</p>
-                        <p>$x^3 - 6x^2 + 11x - 6 = (x-1)(x^2 - 5x + 6) = (x-1)(x-2)(x-3) = 0$</p>
-                        <p>따라서 $x = 1, 2, 3$</p>
-                    </div>
-                    
-                    <h5>3.1.3 근과 계수의 관계</h5>
-                    <p>삼차방정식 $ax^3 + bx^2 + cx + d = 0$의 세 근을 $\\alpha, \\beta, \\gamma$라고 하면:</p>
-                    <div class="math-display">
-                        <p>$\\alpha + \\beta + \\gamma = -\\frac{b}{a}$</p>
-                        <p>$\\alpha\\beta + \\beta\\gamma + \\gamma\\alpha = \\frac{c}{a}$</p>
-                        <p>$\\alpha\\beta\\gamma = -\\frac{d}{a}$</p>
-                    </div>
-                    
-                    <h4>3.2 사차방정식</h4>
-                    <p>사차방정식 $ax^4 + bx^3 + cx^2 + dx + e = 0$ ($a \\neq 0$)을 푸는 방법은 다음과 같습니다:</p>
-                    
-                    <h5>3.2.1 인수분해를 이용한 방법</h5>
-                    <p>공통인수나 인수분해 공식을 이용하여 인수분해합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 3</h4>
-                        <p>방정식 $x^4 - 5x^2 + 4 = 0$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$x^4 - 5x^2 + 4 = (x^2 - 1)(x^2 - 4) = (x-1)(x+1)(x-2)(x+2) = 0$</p>
-                        <p>따라서 $x = \\pm 1, \\pm 2$</p>
-                    </div>
-                    
-                    <h5>3.2.2 치환을 이용한 방법</h5>
-                    <p>이차식의 제곱 형태로 나타낼 수 있는 경우, 치환을 이용하여 이차방정식으로 변환할 수 있습니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 4</h4>
-                        <p>방정식 $x^4 - 13x^2 + 36 = 0$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$x^2 = t$로 치환하면 $t^2 - 13t + 36 = 0$</p>
-                        <p>$(t - 4)(t - 9) = 0$이므로 $t = 4$ 또는 $t = 9$</p>
-                        <p>따라서 $x^2 = 4$ 또는 $x^2 = 9$</p>
-                        <p>따라서 $x = \\pm 2, \\pm 3$</p>
-                    </div>
-                    
-                    <h5>3.2.3 조립제법을 이용한 방법</h5>
-                    <p>한 근을 알 때, 조립제법을 반복 사용하여 방정식을 인수분해할 수 있습니다.</p>
+                    <p>삼차 이상의 방정식을 고차방정식이라고 합니다.</p>
                     
                     <h3>4. 연립방정식</h3>
-                    <p>여러 개의 방정식을 동시에 만족하는 해를 구하는 문제입니다. 주요 풀이 방법은 다음과 같습니다:</p>
-                    
-                    <h4>4.1 대입법</h4>
-                    <p>한 방정식에서 한 미지수를 다른 미지수로 나타낸 후, 다른 방정식에 대입하여 해를 구하는 방법입니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 5</h4>
-                        <p>연립방정식 $\\begin{cases} 2x + y = 7 \\\\ x - y = 2 \\end{cases}$를 대입법으로 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>두 번째 식에서 $x = y + 2$</p>
-                        <p>첫 번째 식에 대입: $2(y + 2) + y = 7$</p>
-                        <p>$2y + 4 + y = 7$, $3y = 3$, $y = 1$</p>
-                        <p>$x = y + 2 = 1 + 2 = 3$</p>
-                        <p>따라서 $x = 3, y = 1$</p>
-                    </div>
-                    
-                    <h4>4.2 가감법</h4>
-                    <p>두 방정식을 적절히 더하거나 빼서 한 미지수를 소거한 후 해를 구하는 방법입니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 6</h4>
-                        <p>연립방정식 $\\begin{cases} 2x + 3y = 13 \\\\ 3x - 2y = 0 \\end{cases}$를 가감법으로 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>첫 번째 식에 2를 곱하고, 두 번째 식에 3을 곱하면:</p>
-                        <p>$\\begin{cases} 4x + 6y = 26 \\\\ 9x - 6y = 0 \\end{cases}$</p>
-                        <p>두 식을 더하면: $13x = 26$, $x = 2$</p>
-                        <p>$x = 2$를 첫 번째 식에 대입: $4 + 3y = 13$, $y = 3$</p>
-                        <p>따라서 $x = 2, y = 3$</p>
-                    </div>
-                    
-                    <h4>4.3 연립이차방정식</h4>
-                    <p>이차방정식이 포함된 연립방정식은 대입법을 주로 사용합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 7</h4>
-                        <p>연립방정식 $\\begin{cases} x + y = 5 \\\\ x^2 + y^2 = 13 \\end{cases}$를 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>첫 번째 식에서 $y = 5 - x$</p>
-                        <p>두 번째 식에 대입: $x^2 + (5-x)^2 = 13$</p>
-                        <p>$x^2 + 25 - 10x + x^2 = 13$</p>
-                        <p>$2x^2 - 10x + 12 = 0$</p>
-                        <p>$x^2 - 5x + 6 = 0$</p>
-                        <p>$(x-2)(x-3) = 0$</p>
-                        <p>따라서 $x = 2$ 또는 $x = 3$</p>
-                        <p>$x = 2$일 때 $y = 3$, $x = 3$일 때 $y = 2$</p>
-                        <p>따라서 $(x, y) = (2, 3), (3, 2)$</p>
-                    </div>
+                    <p>여러 개의 방정식을 동시에 만족하는 해를 구하는 문제입니다.</p>
                     
                     <h3>5. 부등식</h3>
                     <p>부등식의 성질을 이용하여 해를 구할 수 있습니다.</p>
                     
                     <div class="math-display">
                         <p>부등식의 성질:</p>
-                        <p>① $a < b$, $b < c$이면 $a < c$ (추이성)</p>
-                        <p>② $a < b$이면 $a + c < b + c$ (덧셈에 대한 성질)</p>
-                        <p>③ $a < b$, $c > 0$이면 $ac < bc$ (양수 곱셈)</p>
-                        <p>④ $a < b$, $c < 0$이면 $ac > bc$ (음수 곱셈, 부등호 방향 바뀜)</p>
-                    </div>
-                    
-                    <h4>5.1 일차부등식</h4>
-                    <p>일차부등식 $ax + b > 0$ (또는 $<, \\geq, \\leq$)의 해는 일차방정식과 유사하게 구하되, 음수를 곱하거나 나눌 때 부등호 방향을 바꿔야 합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 8</h4>
-                        <p>부등식 $3x - 5 > 2x + 1$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$3x - 5 > 2x + 1$</p>
-                        <p>$3x - 2x > 1 + 5$</p>
-                        <p>$x > 6$</p>
-                    </div>
-                    
-                    <h4>5.2 이차부등식</h4>
-                    <p>이차부등식 $ax^2 + bx + c > 0$ (또는 $<, \\geq, \\leq$)의 해는 이차방정식의 근을 구한 후, 그래프의 위치를 이용하여 구합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 9</h4>
-                        <p>부등식 $x^2 - 5x + 6 < 0$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$x^2 - 5x + 6 = (x-2)(x-3) = 0$의 근은 $x = 2, 3$</p>
-                        <p>이차함수 $y = x^2 - 5x + 6$의 그래프는 아래로 볼록하므로,</p>
-                        <p>$x^2 - 5x + 6 < 0$인 구간은 $2 < x < 3$</p>
-                    </div>
-                    
-                    <h4>5.3 연립부등식</h4>
-                    <p>여러 개의 부등식을 동시에 만족하는 해를 구하는 문제입니다. 각 부등식의 해를 구한 후 교집합을 구합니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 10</h4>
-                        <p>연립부등식 $\\begin{cases} 2x - 3 < 5 \\\\ x + 1 > 0 \\end{cases}$를 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>첫 번째 부등식: $2x < 8$, $x < 4$</p>
-                        <p>두 번째 부등식: $x > -1$</p>
-                        <p>따라서 $-1 < x < 4$</p>
-                    </div>
-                    
-                    <h4>5.4 절댓값이 포함된 부등식</h4>
-                    <p>절댓값이 포함된 부등식은 절댓값의 정의에 따라 경우를 나누어 풉니다.</p>
-                    
-                    <div class="example-box">
-                        <h4>예제 11</h4>
-                        <p>부등식 $|x - 2| < 3$을 풀어보시오.</p>
-                        <p><strong>풀이:</strong></p>
-                        <p>$|x - 2| < 3$은 $-3 < x - 2 < 3$과 같습니다.</p>
-                        <p>양변에 2를 더하면: $-1 < x < 5$</p>
+                        <p>① $a < b$, $b < c$이면 $a < c$</p>
+                        <p>② $a < b$이면 $a + c < b + c$</p>
+                        <p>③ $a < b$, $c > 0$이면 $ac < bc$</p>
+                        <p>④ $a < b$, $c < 0$이면 $ac > bc$</p>
                     </div>
                     
                     <div class="graph-container">
@@ -4319,3 +5261,1426 @@ const problemData = {
         }
     ]
 };
+
+
+// 메인 네비게이션 및 탭 관리
+document.addEventListener('DOMContentLoaded', function() {
+    // 탭 전환
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            // 모든 탭 버튼과 콘텐츠 비활성화
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // 선택된 탭 활성화
+            button.classList.add('active');
+            document.getElementById(`${targetTab}-tab`).classList.add('active');
+        });
+    });
+    
+    // 사이드바 네비게이션
+    const navItems = document.querySelectorAll('.nav-item');
+    const chapterModal = document.getElementById('chapter-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const chapterList = document.getElementById('chapter-list');
+    const closeModal = document.querySelector('.close-modal');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const subject = item.getAttribute('data-subject');
+            
+            // 모든 네비게이션 아이템 비활성화
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+            
+            // 개념 학습 탭으로 전환
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === 'concept') {
+                    btn.click();
+                }
+            });
+            
+            // 챕터 선택 모달 표시
+            showChapterModal(subject);
+        });
+    });
+    
+    function showChapterModal(subject) {
+        if (!mathData[subject]) return;
+        
+        modalTitle.textContent = mathData[subject].title;
+        chapterList.innerHTML = '';
+        
+        mathData[subject].chapters.forEach(chapter => {
+            const chapterItem = document.createElement('div');
+            chapterItem.className = 'chapter-item';
+            chapterItem.textContent = chapter.title;
+            chapterItem.addEventListener('click', () => {
+                loadConceptContent(subject, chapter.id);
+                chapterModal.classList.add('hidden');
+            });
+            chapterList.appendChild(chapterItem);
+        });
+        
+        chapterModal.classList.remove('hidden');
+    }
+    
+    closeModal.addEventListener('click', () => {
+        chapterModal.classList.add('hidden');
+    });
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === chapterModal) {
+            chapterModal.classList.add('hidden');
+        }
+    });
+    
+    // 초기화
+    initializeGraphs();
+});
+
+// 그래프 초기화 함수
+function initializeGraphs() {
+    // 함수 그래프 예시
+    if (document.getElementById('function-graph-1')) {
+        const x = [];
+        const y = [];
+        for (let i = -5; i <= 5; i += 0.1) {
+            x.push(i);
+            y.push(i * i); // y = x^2
+        }
+        
+        const trace = {
+            x: x,
+            y: y,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'y = x²',
+            line: { color: '#4a90e2', width: 2 }
+        };
+        
+        Plotly.newPlot('function-graph-1', [trace], {
+            title: '함수 y = x²의 그래프',
+            xaxis: { title: 'x' },
+            yaxis: { title: 'y' },
+            margin: { l: 50, r: 50, t: 50, b: 50 }
+        });
+    }
+}
+
+// 개념 콘텐츠 로드 함수 (concept.js에서 사용)
+function loadConceptContent(subject, chapterId) {
+    const subjectData = mathData[subject];
+    if (!subjectData) return;
+    
+    const chapter = subjectData.chapters.find(ch => ch.id === chapterId);
+    if (!chapter) return;
+    
+    // 환영 메시지 숨기기
+    const welcomeMessage = document.querySelector('.welcome-message');
+    if (welcomeMessage) {
+        welcomeMessage.style.display = 'none';
+    }
+    
+    const conceptContent = document.getElementById('concept-content');
+    
+    // 콘텐츠를 파싱하여 접을 수 있는 섹션으로 변환
+    const processedContent = processConceptContent(chapter.content);
+    conceptContent.innerHTML = processedContent;
+    
+    // 목차 생성
+    createTableOfContents(conceptContent);
+    
+    // 접기/펼치기 이벤트 리스너 추가
+    attachCollapseListeners(conceptContent);
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([conceptContent]).then(() => {
+            // 그래프 생성
+            createGraphsForContent(chapterId);
+        });
+    }
+}
+
+// 콘텐츠를 접을 수 있는 섹션으로 변환
+function processConceptContent(content) {
+    // 임시 div를 사용하여 HTML 파싱
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    // h3 태그들을 찾아서 각 섹션을 접을 수 있게 래핑
+    const h3Elements = Array.from(tempDiv.querySelectorAll('h3'));
+    
+    if (h3Elements.length === 0) {
+        // h3가 없으면 원본 내용 그대로 사용
+        return content;
+    }
+    
+    const sections = [];
+    
+    h3Elements.forEach((h3, index) => {
+        const sectionId = `section-${index}`;
+        const sectionTitle = h3.textContent.trim();
+        
+        // h3부터 다음 h3 또는 끝까지의 내용을 가져옴
+        let sectionContent = '';
+        let currentNode = h3.nextSibling;
+        
+        while (currentNode) {
+            // 다음 h3를 만나면 중단
+            if (currentNode.nodeType === Node.ELEMENT_NODE && currentNode.tagName === 'H3') {
+                break;
+            }
+            
+            // 노드 복사
+            if (currentNode.nodeType === Node.ELEMENT_NODE) {
+                sectionContent += currentNode.outerHTML;
+            } else if (currentNode.nodeType === Node.TEXT_NODE && currentNode.textContent.trim()) {
+                sectionContent += currentNode.textContent;
+            }
+            
+            currentNode = currentNode.nextSibling;
+        }
+        
+        sections.push({
+            id: sectionId,
+            title: sectionTitle,
+            content: sectionContent.trim()
+        });
+    });
+    
+    // h2 제목 가져오기
+    const h2 = tempDiv.querySelector('h2');
+    const mainTitle = h2 ? h2.outerHTML : '';
+    
+    // 접을 수 있는 섹션으로 재구성
+    let processedHTML = mainTitle;
+    
+    sections.forEach((section) => {
+        processedHTML += `
+            <div class="concept-section-collapsible">
+                <button class="section-toggle" data-section="${section.id}">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>${section.title}</span>
+                </button>
+                <div class="section-content collapsed" id="${section.id}">
+                    ${section.content}
+                </div>
+            </div>
+        `;
+    });
+    
+    return processedHTML;
+}
+
+// 목차 생성
+function createTableOfContents(container) {
+    const sections = container.querySelectorAll('.concept-section-collapsible');
+    if (sections.length === 0) return;
+    
+    const toc = document.createElement('div');
+    toc.className = 'table-of-contents';
+    toc.innerHTML = `
+        <div class="toc-header">
+            <h3><i class="fas fa-list"></i> 목차</h3>
+            <button class="toc-toggle-all" data-action="expand">
+                <i class="fas fa-expand"></i> 모두 펼치기
+            </button>
+        </div>
+        <ul class="toc-list">
+            ${Array.from(sections).map((section, index) => {
+                const button = section.querySelector('.section-toggle');
+                const title = button.querySelector('span').textContent;
+                const sectionId = button.getAttribute('data-section');
+                return `<li><a href="#${sectionId}" class="toc-link" data-section="${sectionId}">${title}</a></li>`;
+            }).join('')}
+        </ul>
+    `;
+    
+    container.insertBefore(toc, container.firstChild);
+    
+    // 목차 링크 클릭 이벤트
+    toc.querySelectorAll('.toc-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = link.getAttribute('data-section');
+            const section = container.querySelector(`#${sectionId}`);
+            if (section) {
+                // 섹션 펼치기
+                expandSection(section);
+                // 스크롤 이동
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // 모두 펼치기/접기 버튼
+    const toggleAllBtn = toc.querySelector('.toc-toggle-all');
+    toggleAllBtn.addEventListener('click', () => {
+        const action = toggleAllBtn.getAttribute('data-action');
+        if (action === 'expand') {
+            sections.forEach(section => {
+                const content = section.querySelector('.section-content');
+                expandSection(content);
+            });
+            toggleAllBtn.setAttribute('data-action', 'collapse');
+            toggleAllBtn.innerHTML = '<i class="fas fa-compress"></i> 모두 접기';
+        } else {
+            sections.forEach(section => {
+                const content = section.querySelector('.section-content');
+                collapseSection(content);
+            });
+            toggleAllBtn.setAttribute('data-action', 'expand');
+            toggleAllBtn.innerHTML = '<i class="fas fa-expand"></i> 모두 펼치기';
+        }
+    });
+}
+
+// 접기/펼치기 이벤트 리스너 추가
+function attachCollapseListeners(container) {
+    const toggleButtons = container.querySelectorAll('.section-toggle');
+    
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const sectionId = button.getAttribute('data-section');
+            const section = container.querySelector(`#${sectionId}`);
+            const icon = button.querySelector('i');
+            
+            if (section.classList.contains('collapsed')) {
+                expandSection(section);
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                collapseSection(section);
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+}
+
+// 섹션 펼치기
+function expandSection(section) {
+    section.classList.remove('collapsed');
+    // 실제 높이를 계산하여 설정
+    const height = section.scrollHeight;
+    section.style.maxHeight = height + 'px';
+    
+    // 애니메이션 완료 후 자동 높이로 변경
+    setTimeout(() => {
+        if (!section.classList.contains('collapsed')) {
+            section.style.maxHeight = 'none';
+        }
+    }, 300);
+}
+
+// 섹션 접기
+function collapseSection(section) {
+    // 현재 높이를 저장
+    const height = section.scrollHeight;
+    section.style.maxHeight = height + 'px';
+    
+    // 강제 리플로우
+    section.offsetHeight;
+    
+    // 접기 애니메이션
+    section.classList.add('collapsed');
+    section.style.maxHeight = '0';
+}
+
+// 챕터별 그래프 생성
+function createGraphsForContent(chapterId) {
+    // 등차수열 그래프
+    if (chapterId === 'sequence-limit') {
+        createArithmeticSequenceGraph();
+    }
+    
+    // 이차함수 그래프
+    if (chapterId === 'equation-inequality') {
+        createQuadraticGraph();
+    }
+    
+    // 극한 그래프
+    if (chapterId === 'limit-continuity') {
+        createLimitGraph();
+    }
+    
+    // 미분 그래프
+    if (chapterId === 'derivative') {
+        createDerivativeGraph();
+    }
+    
+    // 적분 그래프
+    if (chapterId === 'integral') {
+        createIntegralGraph();
+    }
+    
+    // 확률 그래프
+    if (chapterId === 'probability-basic' || chapterId === 'probability-distribution') {
+        createProbabilityGraph();
+    }
+    
+    // 지수함수 그래프
+    if (chapterId === 'exponential-logarithm') {
+        createExponentialGraph();
+    }
+    
+    // 삼각함수 그래프
+    if (chapterId === 'trigonometric-function') {
+        createTrigonometricGraph();
+    }
+}
+
+function createArithmeticSequenceGraph() {
+    const container = document.getElementById('arithmetic-sequence-graph');
+    if (!container) return;
+    
+    const n = [];
+    const a_n = [];
+    const a = 2, d = 3;
+    
+    for (let i = 1; i <= 10; i++) {
+        n.push(i);
+        a_n.push(a + (i - 1) * d);
+    }
+    
+    const trace = {
+        x: n,
+        y: a_n,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: `a_n = ${a} + (n-1) × ${d}`,
+        marker: { size: 8, color: '#7b68ee' },
+        line: { color: '#7b68ee', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace], {
+        title: '등차수열 그래프',
+        xaxis: { title: 'n' },
+        yaxis: { title: 'a_n' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createQuadraticGraph() {
+    const container = document.getElementById('quadratic-graph');
+    if (!container) return;
+    
+    const x = [];
+    const y1 = [];
+    const y2 = [];
+    
+    for (let i = -5; i <= 5; i += 0.1) {
+        x.push(i);
+        y1.push(i * i - 4); // y = x^2 - 4
+        y2.push(-i * i + 4); // y = -x^2 + 4
+    }
+    
+    const trace1 = {
+        x: x,
+        y: y1,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = x² - 4',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    const trace2 = {
+        x: x,
+        y: y2,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = -x² + 4',
+        line: { color: '#50c878', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2], {
+        title: '이차함수의 그래프',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createLimitGraph() {
+    const container = document.getElementById('limit-graph');
+    if (!container) return;
+    
+    const x1 = [];
+    const y1 = [];
+    const x2 = [];
+    const y2 = [];
+    
+    // 연속함수: y = x^2
+    for (let i = -3; i <= 3; i += 0.1) {
+        x1.push(i);
+        y1.push(i * i);
+    }
+    
+    // 불연속함수: y = 1/x (x ≠ 0)
+    for (let i = -3; i <= -0.1; i += 0.1) {
+        x2.push(i);
+        y2.push(1 / i);
+    }
+    for (let i = 0.1; i <= 3; i += 0.1) {
+        x2.push(i);
+        y2.push(1 / i);
+    }
+    
+    const trace1 = {
+        x: x1,
+        y: y1,
+        type: 'scatter',
+        mode: 'lines',
+        name: '연속함수: y = x²',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    const trace2 = {
+        x: x2,
+        y: y2,
+        type: 'scatter',
+        mode: 'lines',
+        name: '불연속함수: y = 1/x',
+        line: { color: '#e74c3c', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2], {
+        title: '함수의 극한과 연속성',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createDerivativeGraph() {
+    const container = document.getElementById('derivative-graph');
+    if (!container) return;
+    
+    const x = [];
+    const y = [];
+    const dy = [];
+    
+    // 함수: y = x^3 - 3x
+    for (let i = -3; i <= 3; i += 0.1) {
+        x.push(i);
+        y.push(i * i * i - 3 * i);
+        dy.push(3 * i * i - 3); // 도함수: y' = 3x^2 - 3
+    }
+    
+    const trace1 = {
+        x: x,
+        y: y,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'f(x) = x³ - 3x',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    const trace2 = {
+        x: x,
+        y: dy,
+        type: 'scatter',
+        mode: 'lines',
+        name: "f'(x) = 3x² - 3",
+        line: { color: '#50c878', width: 2, dash: 'dash' }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2], {
+        title: '함수와 그 도함수',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createIntegralGraph() {
+    const container = document.getElementById('integral-graph');
+    if (!container) return;
+    
+    const x = [];
+    const y = [];
+    const x_fill = [];
+    const y_fill = [];
+    
+    // 함수: y = x^2
+    for (let i = 0; i <= 3; i += 0.1) {
+        x.push(i);
+        y.push(i * i);
+        if (i >= 1 && i <= 2) {
+            x_fill.push(i);
+            y_fill.push(i * i);
+        }
+    }
+    
+    const trace1 = {
+        x: x,
+        y: y,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = x²',
+        line: { color: '#4a90e2', width: 2 },
+        fill: 'none'
+    };
+    
+    const trace2 = {
+        x: [1, 1, 2, 2, 1],
+        y: [0, 1, 4, 0, 0],
+        type: 'scatter',
+        mode: 'lines',
+        name: '정적분 영역',
+        fill: 'tozeroy',
+        fillcolor: 'rgba(74, 144, 226, 0.3)',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2], {
+        title: '정적분 ∫₁² x² dx의 기하학적 의미',
+        xaxis: { title: 'x', range: [0, 3] },
+        yaxis: { title: 'y', range: [0, 9] },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createProbabilityGraph() {
+    const container = document.getElementById('probability-graph');
+    if (!container) return;
+    
+    // 이항분포 예시: n=10, p=0.5
+    const x = [];
+    const y = [];
+    
+    for (let k = 0; k <= 10; k++) {
+        x.push(k);
+        // 이항분포 확률: C(10,k) * 0.5^10
+        const prob = binomialCoefficient(10, k) * Math.pow(0.5, 10);
+        y.push(prob);
+    }
+    
+    const trace = {
+        x: x,
+        y: y,
+        type: 'bar',
+        name: '이항분포 (n=10, p=0.5)',
+        marker: { color: '#7b68ee' }
+    };
+    
+    Plotly.newPlot(container, [trace], {
+        title: '이항분포 확률분포',
+        xaxis: { title: '성공 횟수 (k)' },
+        yaxis: { title: '확률 P(X=k)' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function binomialCoefficient(n, k) {
+    if (k > n) return 0;
+    if (k === 0 || k === n) return 1;
+    
+    let result = 1;
+    for (let i = 0; i < k; i++) {
+        result = result * (n - i) / (i + 1);
+    }
+    return result;
+}
+
+function createExponentialGraph() {
+    const container = document.getElementById('exponential-graph');
+    if (!container) return;
+    
+    const x = [];
+    const y1 = [];
+    const y2 = [];
+    
+    for (let i = -3; i <= 3; i += 0.1) {
+        x.push(i);
+        y1.push(Math.pow(2, i)); // y = 2^x
+        y2.push(Math.pow(0.5, i)); // y = (1/2)^x
+    }
+    
+    const trace1 = {
+        x: x,
+        y: y1,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = 2^x',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    const trace2 = {
+        x: x,
+        y: y2,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = (1/2)^x',
+        line: { color: '#50c878', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2], {
+        title: '지수함수의 그래프',
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y', type: 'log' },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+function createTrigonometricGraph() {
+    const container = document.getElementById('trigonometric-graph');
+    if (!container) return;
+    
+    const x = [];
+    const y_sin = [];
+    const y_cos = [];
+    const y_tan = [];
+    
+    for (let i = -2 * Math.PI; i <= 2 * Math.PI; i += 0.1) {
+        x.push(i);
+        y_sin.push(Math.sin(i));
+        y_cos.push(Math.cos(i));
+        // tan은 특정 값에서 무한대가 되므로 제한
+        if (Math.abs(Math.cos(i)) > 0.01) {
+            y_tan.push(Math.tan(i));
+        } else {
+            y_tan.push(null);
+        }
+    }
+    
+    const trace1 = {
+        x: x,
+        y: y_sin,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = sin(x)',
+        line: { color: '#4a90e2', width: 2 }
+    };
+    
+    const trace2 = {
+        x: x,
+        y: y_cos,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = cos(x)',
+        line: { color: '#50c878', width: 2 }
+    };
+    
+    const trace3 = {
+        x: x,
+        y: y_tan,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'y = tan(x)',
+        line: { color: '#e74c3c', width: 2 }
+    };
+    
+    Plotly.newPlot(container, [trace1, trace2, trace3], {
+        title: '삼각함수의 그래프',
+        xaxis: { title: 'x (라디안)' },
+        yaxis: { title: 'y', range: [-3, 3] },
+        margin: { l: 50, r: 50, t: 50, b: 50 }
+    });
+}
+
+
+// 개념 학습 관련 기능
+// (main.js에서 loadConceptContent 함수가 이미 구현되어 있음)
+
+// 추가 개념 관련 유틸리티 함수들
+function highlightImportantConcepts() {
+    // 중요한 개념 강조 표시
+    const importantKeywords = ['정의', '정리', '공식', '예제'];
+    // 구현 필요시 추가
+}
+
+function addBookmark() {
+    // 북마크 기능
+    const currentChapter = getCurrentChapter();
+    if (currentChapter) {
+        saveToNotes(currentChapter);
+    }
+}
+
+function getCurrentChapter() {
+    // 현재 보고 있는 챕터 정보 반환
+    const activeNav = document.querySelector('.nav-item.active');
+    if (!activeNav) return null;
+    
+    const subject = activeNav.getAttribute('data-subject');
+    const content = document.getElementById('concept-content');
+    // 챕터 정보 추출 로직
+    return { subject, content };
+}
+
+
+// 문제 풀이 관련 기능
+let currentProblem = null;
+let currentProblemIndex = 0;
+let filteredProblems = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    const loadBtn = document.getElementById('load-problem-btn');
+    const checkBtn = document.getElementById('check-answer-btn');
+    const showSolutionBtn = document.getElementById('show-solution-btn');
+    const nextBtn = document.getElementById('next-problem-btn');
+    const difficultyFilter = document.getElementById('difficulty-filter');
+    const topicFilter = document.getElementById('topic-filter');
+    
+    loadBtn.addEventListener('click', loadRandomProblem);
+    checkBtn.addEventListener('click', checkAnswer);
+    showSolutionBtn.addEventListener('click', showSolution);
+    nextBtn.addEventListener('click', loadRandomProblem);
+    
+    difficultyFilter.addEventListener('change', filterProblems);
+    topicFilter.addEventListener('change', filterProblems);
+    
+    // 초기 문제 로드
+    filterProblems();
+});
+
+function filterProblems() {
+    const difficulty = document.getElementById('difficulty-filter').value;
+    const topic = document.getElementById('topic-filter').value;
+    
+    filteredProblems = [];
+    
+    // 모든 과목의 문제를 필터링
+    Object.keys(problemData).forEach(subject => {
+        if (topic === 'all' || topic === subject) {
+            problemData[subject].forEach(problem => {
+                if (difficulty === 'all' || problem.difficulty === difficulty) {
+                    filteredProblems.push({
+                        ...problem,
+                        subject: subject
+                    });
+                }
+            });
+        }
+    });
+    
+    if (filteredProblems.length > 0) {
+        loadRandomProblem();
+    } else {
+        showNoProblemMessage();
+    }
+}
+
+function loadRandomProblem() {
+    if (filteredProblems.length === 0) {
+        showNoProblemMessage();
+        return;
+    }
+    
+    // 랜덤하게 문제 선택
+    const randomIndex = Math.floor(Math.random() * filteredProblems.length);
+    currentProblem = filteredProblems[randomIndex];
+    currentProblemIndex = randomIndex;
+    
+    displayProblem(currentProblem);
+    
+    // 답안 입력란 초기화
+    document.getElementById('answer-input').value = '';
+    document.getElementById('solution-display').classList.add('hidden');
+}
+
+function displayProblem(problem) {
+    const problemText = document.getElementById('problem-text');
+    problemText.innerHTML = `
+        <div class="problem-meta">
+            <span class="difficulty-badge ${problem.difficulty}">${getDifficultyText(problem.difficulty)}</span>
+            <span class="topic-badge">${getTopicText(problem.subject)}</span>
+        </div>
+        <div class="problem-content">
+            ${problem.problem}
+        </div>
+    `;
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([problemText]);
+    }
+}
+
+// 답안 정규화 함수 (비교를 위해 텍스트를 정규화)
+function normalizeAnswer(answer) {
+    if (!answer) return '';
+    
+    let normalized = answer.toString();
+    
+    // LaTeX 기호를 일반 기호로 변환
+    normalized = normalized
+        .replace(/\\cup/g, '∪')
+        .replace(/\\cap/g, '∩')
+        .replace(/\\in/g, '∈')
+        .replace(/\\notin/g, '∉')
+        .replace(/\\subset/g, '⊂')
+        .replace(/\\supset/g, '⊃')
+        .replace(/\\subseteq/g, '⊆')
+        .replace(/\\supseteq/g, '⊇')
+        .replace(/\\emptyset/g, '∅')
+        .replace(/\\mathbb\{N\}/g, 'N')
+        .replace(/\\mathbb\{Z\}/g, 'Z')
+        .replace(/\\mathbb\{Q\}/g, 'Q')
+        .replace(/\\mathbb\{R\}/g, 'R')
+        .replace(/\\mathbb\{C\}/g, 'C')
+        .replace(/\\pi/g, 'π')
+        .replace(/\\theta/g, 'θ')
+        .replace(/\\alpha/g, 'α')
+        .replace(/\\beta/g, 'β')
+        .replace(/\\gamma/g, 'γ')
+        .replace(/\\lambda/g, 'λ')
+        .replace(/\\mu/g, 'μ')
+        .replace(/\\sigma/g, 'σ')
+        .replace(/\\sin/g, 'sin')
+        .replace(/\\cos/g, 'cos')
+        .replace(/\\tan/g, 'tan')
+        .replace(/\\log/g, 'log')
+        .replace(/\\ln/g, 'ln')
+        .replace(/\\sqrt\[(\d+)\]\{([^}]+)\}/g, '($2)^(1/$1)')
+        .replace(/\\sqrt\{([^}]+)\}/g, '√$1')
+        .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '$1/$2')
+        .replace(/\\cdot/g, '·')
+        .replace(/\\times/g, '×')
+        .replace(/\\div/g, '÷')
+        .replace(/\\pm/g, '±')
+        .replace(/\\leq/g, '≤')
+        .replace(/\\geq/g, '≥')
+        .replace(/\\neq/g, '≠')
+        .replace(/\\approx/g, '≈')
+        .replace(/\\equiv/g, '≡')
+        .replace(/\\rightarrow/g, '→')
+        .replace(/\\leftarrow/g, '←')
+        .replace(/\\Rightarrow/g, '⇒')
+        .replace(/\\Leftarrow/g, '⇐')
+        .replace(/\\Leftrightarrow/g, '⇔')
+        .replace(/\\infty/g, '∞')
+        .replace(/\\sum/g, 'Σ')
+        .replace(/\\prod/g, 'Π')
+        .replace(/\\int/g, '∫')
+        .replace(/\\partial/g, '∂')
+        .replace(/\\nabla/g, '∇')
+        .replace(/\\Delta/g, 'Δ')
+        .replace(/\\lim/g, 'lim')
+        .replace(/\\exp/g, 'exp')
+        .replace(/\\det/g, 'det')
+        .replace(/\\binom\{([^}]+)\}\{([^}]+)\}/g, 'C($1,$2)')
+        .replace(/\\begin\{pmatrix\}([^]*?)\\end\{pmatrix\}/g, '[$1]')
+        .replace(/\\begin\{cases\}([^]*?)\\end\{cases\}/g, '{$1}')
+        .replace(/\\mid/g, '|')
+        .replace(/\\text\{([^}]+)\}/g, '$1')
+        .replace(/\\left\\{/g, '{')
+        .replace(/\\right\\}/g, '}')
+        .replace(/\\left\[/g, '[')
+        .replace(/\\right\]/g, ']')
+        .replace(/\\left\(/g, '(')
+        .replace(/\\right\)/g, ')')
+        .replace(/\\left\|/g, '|')
+        .replace(/\\right\|/g, '|')
+        .replace(/\\left\./g, '')
+        .replace(/\\right\./g, '')
+        .replace(/\\,/g, '')
+        .replace(/\\;/g, ' ')
+        .replace(/\\!/g, '')
+        .replace(/\\quad/g, ' ')
+        .replace(/\\qquad/g, '  ')
+        .replace(/\\hspace\{[^}]+\}/g, ' ')
+        .replace(/\\vspace\{[^}]+\}/g, ' ')
+        .replace(/\\label\{[^}]+\}/g, '')
+        .replace(/\\tag\{[^}]+\}/g, '')
+        .replace(/\\ref\{[^}]+\}/g, '')
+        .replace(/\\cite\{[^}]+\}/g, '')
+        .replace(/\\href\{[^}]+\}\{([^}]+)\}/g, '$1')
+        .replace(/\\url\{([^}]+)\}/g, '$1')
+        .replace(/\\textbf\{([^}]+)\}/g, '$1')
+        .replace(/\\textit\{([^}]+)\}/g, '$1')
+        .replace(/\\emph\{([^}]+)\}/g, '$1')
+        .replace(/\\texttt\{([^}]+)\}/g, '$1')
+        .replace(/\\mathrm\{([^}]+)\}/g, '$1')
+        .replace(/\\mathit\{([^}]+)\}/g, '$1')
+        .replace(/\\mathbf\{([^}]+)\}/g, '$1')
+        .replace(/\\mathsf\{([^}]+)\}/g, '$1')
+        .replace(/\\mathtt\{([^}]+)\}/g, '$1')
+        .replace(/\\mathcal\{([^}]+)\}/g, '$1')
+        .replace(/\\mathfrak\{([^}]+)\}/g, '$1')
+        .replace(/\\mathscr\{([^}]+)\}/g, '$1')
+        .replace(/\\hat\{([^}]+)\}/g, '^$1')
+        .replace(/\\check\{([^}]+)\}/g, '$1')
+        .replace(/\\breve\{([^}]+)\}/g, '$1')
+        .replace(/\\acute\{([^}]+)\}/g, '$1')
+        .replace(/\\grave\{([^}]+)\}/g, '$1')
+        .replace(/\\tilde\{([^}]+)\}/g, '~$1')
+        .replace(/\\bar\{([^}]+)\}/g, '$1')
+        .replace(/\\vec\{([^}]+)\}/g, '$1')
+        .replace(/\\dot\{([^}]+)\}/g, '$1')
+        .replace(/\\ddot\{([^}]+)\}/g, '$1')
+        .replace(/\\widehat\{([^}]+)\}/g, '^$1')
+        .replace(/\\widetilde\{([^}]+)\}/g, '~$1')
+        .replace(/\\overline\{([^}]+)\}/g, '$1')
+        .replace(/\\underline\{([^}]+)\}/g, '$1')
+        .replace(/\\overbrace\{([^}]+)\}/g, '$1')
+        .replace(/\\underbrace\{([^}]+)\}/g, '$1')
+        .replace(/\\overset\{([^}]+)\}\{([^}]+)\}/g, '$2^$1')
+        .replace(/\\underset\{([^}]+)\}\{([^}]+)\}/g, '$2_$1')
+        .replace(/\\stackrel\{([^}]+)\}\{([^}]+)\}/g, '$2^$1')
+        .replace(/\\substack\{([^}]+)\}/g, '$1')
+        .replace(/\\sideset\{[^}]*\}\{[^}]*\}\{([^}]+)\}/g, '$1')
+        .replace(/\\mathop\{([^}]+)\}/g, '$1')
+        .replace(/\\operatorname\{([^}]+)\}/g, '$1')
+        .replace(/\\operatorname\*\{([^}]+)\}/g, '$1')
+        .replace(/\\DeclareMathOperator\{[^}]+\}\{([^}]+)\}/g, '$1')
+        .replace(/\\DeclareMathOperator\*\{[^}]+\}\{([^}]+)\}/g, '$1')
+        .replace(/\\mathbin\{([^}]+)\}/g, '$1')
+        .replace(/\\mathrel\{([^}]+)\}/g, '$1')
+        .replace(/\\mathopen\{([^}]+)\}/g, '$1')
+        .replace(/\\mathclose\{([^}]+)\}/g, '$1')
+        .replace(/\\mathpunct\{([^}]+)\}/g, '$1')
+        .replace(/\\mathord\{([^}]+)\}/g, '$1')
+        .replace(/\\mathinner\{([^}]+)\}/g, '$1');
+    
+    // $ 기호 제거 (LaTeX 수식 구분자)
+    normalized = normalized.replace(/\$/g, '');
+    
+    // 중괄호 제거 (LaTeX 명령어 구분자)
+    normalized = normalized.replace(/\{/g, '').replace(/\}/g, '');
+    
+    // 백슬래시 제거
+    normalized = normalized.replace(/\\/g, '');
+    
+    // 공백 정규화 (여러 공백을 하나로, 앞뒤 공백 제거)
+    normalized = normalized.replace(/\s+/g, ' ').trim();
+    
+    // 특수 문자 정규화
+    normalized = normalized
+        .replace(/，/g, ',')
+        .replace(/。/g, '.')
+        .replace(/；/g, ';')
+        .replace(/：/g, ':')
+        .replace(/？/g, '?')
+        .replace(/！/g, '!')
+        .replace(/（/g, '(')
+        .replace(/）/g, ')')
+        .replace(/【/g, '[')
+        .replace(/】/g, ']')
+        .replace(/「/g, '"')
+        .replace(/」/g, '"')
+        .replace(/『/g, "'")
+        .replace(/』/g, "'");
+    
+    return normalized.toLowerCase();
+}
+
+// 답안 비교 함수 (정규화된 답안을 비교)
+function compareAnswers(userAnswer, correctAnswer) {
+    const normalizedUser = normalizeAnswer(userAnswer);
+    const normalizedCorrect = normalizeAnswer(correctAnswer);
+    
+    // 정확히 일치하는 경우
+    if (normalizedUser === normalizedCorrect) {
+        return true;
+    }
+    
+    // 부분 일치 확인 (정답이 여러 부분으로 구성된 경우)
+    // 예: "$A \\cup B = \\{1, 2, 3\\}$, $A \\cap B = \\{2\\}$"
+    const correctParts = normalizedCorrect.split(',').map(part => part.trim());
+    const userParts = normalizedUser.split(',').map(part => part.trim());
+    
+    // 모든 정답 부분이 사용자 답안에 포함되어 있는지 확인
+    if (correctParts.length > 1 && correctParts.every(part => 
+        normalizedUser.includes(part) || userParts.some(up => up.includes(part) || part.includes(up))
+    )) {
+        return true;
+    }
+    
+    // 사용자 답안의 모든 부분이 정답에 포함되어 있는지 확인
+    if (userParts.length > 1 && userParts.every(part => 
+        normalizedCorrect.includes(part) || correctParts.some(cp => cp.includes(part) || part.includes(cp))
+    )) {
+        return true;
+    }
+    
+    // 집합 표현 정규화 비교
+    const normalizeSet = (str) => {
+        return str
+            .replace(/\{/g, '')
+            .replace(/\}/g, '')
+            .replace(/\s+/g, '')
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => x)
+            .sort()
+            .join(',');
+    };
+    
+    // 집합 표현이 있는 경우 비교
+    const userSetMatch = normalizedUser.match(/\{([^}]+)\}/g);
+    const correctSetMatch = normalizedCorrect.match(/\{([^}]+)\}/g);
+    
+    if (userSetMatch && correctSetMatch && userSetMatch.length === correctSetMatch.length) {
+        const userSets = userSetMatch.map(normalizeSet);
+        const correctSets = correctSetMatch.map(normalizeSet);
+        
+        if (userSets.every((us, i) => 
+            correctSets.some(cs => cs === us) || 
+            userSets.some((us2, j) => j !== i && cs === us2)
+        )) {
+            // 집합 부분이 일치하면 나머지 부분도 확인
+            const userWithoutSets = normalizedUser.replace(/\{[^}]+\}/g, '').trim();
+            const correctWithoutSets = normalizedCorrect.replace(/\{[^}]+\}/g, '').trim();
+            
+            if (userWithoutSets === correctWithoutSets || 
+                userWithoutSets.includes(correctWithoutSets) ||
+                correctWithoutSets.includes(userWithoutSets)) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+function checkAnswer() {
+    if (!currentProblem) {
+        alert('먼저 문제를 불러오세요.');
+        return;
+    }
+    
+    const userAnswer = document.getElementById('answer-input').value.trim();
+    const correctAnswer = currentProblem.answer;
+    
+    if (userAnswer === '') {
+        alert('답안을 입력하세요.');
+        return;
+    }
+    
+    // 정규화된 답안 비교
+    const isCorrect = compareAnswers(userAnswer, correctAnswer);
+    
+    // 답안 확인 결과 표시
+    const result = document.createElement('div');
+    result.className = 'answer-result';
+    result.innerHTML = `
+        <h4>${isCorrect ? '정답입니다! ✅' : '틀렸습니다. 다시 생각해보세요. ❌'}</h4>
+        <p><strong>정답:</strong> ${correctAnswer}</p>
+        ${!isCorrect ? `<p><strong>입력한 답:</strong> ${userAnswer}</p>` : ''}
+    `;
+    
+    const solutionDisplay = document.getElementById('solution-display');
+    solutionDisplay.innerHTML = '';
+    solutionDisplay.appendChild(result);
+    solutionDisplay.classList.remove('hidden');
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([solutionDisplay]);
+    }
+}
+
+function showSolution() {
+    if (!currentProblem) {
+        alert('먼저 문제를 불러오세요.');
+        return;
+    }
+    
+    const solutionDisplay = document.getElementById('solution-display');
+    solutionDisplay.innerHTML = `
+        <h4>해설</h4>
+        <div class="solution-content">
+            <p><strong>정답:</strong> ${currentProblem.answer}</p>
+            <p><strong>해설:</strong> ${currentProblem.solution}</p>
+        </div>
+    `;
+    
+    solutionDisplay.classList.remove('hidden');
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([solutionDisplay]);
+    }
+}
+
+function showNoProblemMessage() {
+    const problemText = document.getElementById('problem-text');
+    problemText.innerHTML = '<p>선택한 조건에 맞는 문제가 없습니다. 필터를 변경해보세요.</p>';
+}
+
+function getDifficultyText(difficulty) {
+    const difficultyMap = {
+        'easy': '쉬움',
+        'medium': '보통',
+        'hard': '어려움'
+    };
+    return difficultyMap[difficulty] || difficulty;
+}
+
+function getTopicText(subject) {
+    const topicMap = {
+        'math-high-1': '수학 상',
+        'math-high-2': '수학 하',
+        'math-1': '수학 1',
+        'math-2': '수학 2',
+        'calculus': '미적분',
+        'geometry': '기하',
+        'probability': '확률과 통계',
+        'linear-algebra': '선형대수학',
+        'multivariable-calculus': '다변수 미적분학'
+    };
+    return topicMap[subject] || subject;
+}
+
+
+// 질문하기 기능
+let questions = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadQuestions();
+    
+    const submitBtn = document.getElementById('submit-question-btn');
+    submitBtn.addEventListener('click', submitQuestion);
+    
+    const questionInput = document.getElementById('question-input');
+    questionInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            submitQuestion();
+        }
+    });
+});
+
+function loadQuestions() {
+    const savedQuestions = localStorage.getItem('mathQuestions');
+    if (savedQuestions) {
+        questions = JSON.parse(savedQuestions);
+        displayQuestions();
+    } else {
+        questions = [];
+    }
+}
+
+function saveQuestions() {
+    localStorage.setItem('mathQuestions', JSON.stringify(questions));
+}
+
+function submitQuestion() {
+    const questionInput = document.getElementById('question-input');
+    const questionText = questionInput.value.trim();
+    
+    if (questionText === '') {
+        alert('질문을 입력하세요.');
+        return;
+    }
+    
+    const question = {
+        id: Date.now(),
+        text: questionText,
+        date: new Date().toISOString(),
+        answers: []
+    };
+    
+    questions.unshift(question); // 최신 질문이 위에 오도록
+    saveQuestions();
+    displayQuestions();
+    
+    questionInput.value = '';
+    
+    // 간단한 응답 (실제로는 AI나 교사가 답변)
+    setTimeout(() => {
+        addAnswer(question.id, '질문이 등록되었습니다. 답변을 기다려주세요.');
+    }, 1000);
+}
+
+function addAnswer(questionId, answerText) {
+    const question = questions.find(q => q.id === questionId);
+    if (question) {
+        question.answers.push({
+            text: answerText,
+            date: new Date().toISOString()
+        });
+        saveQuestions();
+        displayQuestions();
+    }
+}
+
+function displayQuestions() {
+    const questionsList = document.getElementById('questions-list');
+    
+    if (questions.length === 0) {
+        questionsList.innerHTML = '<p class="empty-message">아직 질문이 없습니다. 첫 질문을 남겨보세요!</p>';
+        return;
+    }
+    
+    questionsList.innerHTML = '';
+    
+    questions.forEach(question => {
+        const questionElement = document.createElement('div');
+        questionElement.className = 'question-item';
+        
+        const date = new Date(question.date).toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        let answersHtml = '';
+        if (question.answers.length > 0) {
+            answersHtml = '<div class="answers-section"><h5>답변:</h5>';
+            question.answers.forEach(answer => {
+                const answerDate = new Date(answer.date).toLocaleDateString('ko-KR');
+                answersHtml += `
+                    <div class="answer-item">
+                        <p>${answer.text}</p>
+                        <small>${answerDate}</small>
+                    </div>
+                `;
+            });
+            answersHtml += '</div>';
+        }
+        
+        questionElement.innerHTML = `
+            <div class="question-header">
+                <h4>질문</h4>
+                <small>${date}</small>
+            </div>
+            <div class="question-text">${question.text}</div>
+            ${answersHtml}
+        `;
+        
+        questionsList.appendChild(questionElement);
+    });
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([questionsList]);
+    }
+}
+
+
+// 복습 노트 관련 기능
+let notes = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadNotes();
+    
+    const clearBtn = document.getElementById('clear-notes-btn');
+    clearBtn.addEventListener('click', clearNotes);
+    
+    // 문제 해설에서 노트 저장 기능 추가
+    setupNoteSaving();
+});
+
+function loadNotes() {
+    const savedNotes = localStorage.getItem('mathNotes');
+    if (savedNotes) {
+        notes = JSON.parse(savedNotes);
+        displayNotes();
+    } else {
+        notes = [];
+        showEmptyMessage();
+    }
+}
+
+function saveNotes() {
+    localStorage.setItem('mathNotes', JSON.stringify(notes));
+}
+
+function displayNotes() {
+    const notesContent = document.getElementById('notes-content');
+    
+    if (notes.length === 0) {
+        showEmptyMessage();
+        return;
+    }
+    
+    notesContent.innerHTML = '';
+    
+    notes.forEach((note, index) => {
+        const noteElement = document.createElement('div');
+        noteElement.className = 'note-item';
+        noteElement.innerHTML = `
+            <div class="note-header">
+                <h4>${note.title}</h4>
+                <button class="delete-note-btn" data-index="${index}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <div class="note-content">${note.content}</div>
+            <div class="note-meta">
+                <small>저장일: ${new Date(note.date).toLocaleDateString('ko-KR')}</small>
+            </div>
+        `;
+        
+        notesContent.appendChild(noteElement);
+    });
+    
+    // 삭제 버튼 이벤트 리스너 추가
+    document.querySelectorAll('.delete-note-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.closest('.delete-note-btn').getAttribute('data-index'));
+            deleteNote(index);
+        });
+    });
+    
+    // MathJax 재렌더링
+    if (window.MathJax) {
+        MathJax.typesetPromise([notesContent]);
+    }
+}
+
+function showEmptyMessage() {
+    const notesContent = document.getElementById('notes-content');
+    notesContent.innerHTML = '<p class="empty-message">아직 복습 노트가 없습니다. 문제를 풀면서 중요한 내용을 저장하세요!</p>';
+}
+
+function addNote(title, content) {
+    const note = {
+        title: title,
+        content: content,
+        date: new Date().toISOString()
+    };
+    
+    notes.push(note);
+    saveNotes();
+    displayNotes();
+}
+
+function deleteNote(index) {
+    if (confirm('이 노트를 삭제하시겠습니까?')) {
+        notes.splice(index, 1);
+        saveNotes();
+        displayNotes();
+    }
+}
+
+function clearNotes() {
+    if (confirm('모든 노트를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+        notes = [];
+        saveNotes();
+        showEmptyMessage();
+    }
+}
+
+function setupNoteSaving() {
+    // 문제 해설에서 노트 저장 버튼 추가
+    // 실제 구현은 문제 표시 시 동적으로 버튼 추가
+}
+
+// 개념 학습 페이지에서 노트 저장
+function saveToNotes(chapterInfo) {
+    if (!chapterInfo) return;
+    
+    const title = `복습 노트: ${chapterInfo.title || '제목 없음'}`;
+    const content = chapterInfo.content || '';
+    
+    addNote(title, content);
+    alert('노트에 저장되었습니다!');
+}
+
+// 전역 함수로 노트 저장 기능 제공
+window.saveToNotes = saveToNotes;
+    </script>
+</body>
+</html>

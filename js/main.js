@@ -110,11 +110,22 @@ function initializeGraphs() {
 
 // 개념 콘텐츠 로드 함수 (concept.js에서 사용)
 function loadConceptContent(subject, chapterId) {
+    console.log('loadConceptContent called:', subject, chapterId);
+    
     const subjectData = mathData[subject];
-    if (!subjectData) return;
+    if (!subjectData) {
+        console.error('Subject data not found:', subject);
+        return;
+    }
     
     const chapter = subjectData.chapters.find(ch => ch.id === chapterId);
-    if (!chapter) return;
+    if (!chapter) {
+        console.error('Chapter not found:', chapterId);
+        return;
+    }
+    
+    console.log('Chapter found:', chapter.title);
+    console.log('Content length:', chapter.content ? chapter.content.length : 0);
     
     // 환영 메시지 숨기기
     const welcomeMessage = document.querySelector('.welcome-message');
@@ -123,34 +134,65 @@ function loadConceptContent(subject, chapterId) {
     }
     
     const conceptContent = document.getElementById('concept-content');
+    if (!conceptContent) {
+        console.error('concept-content element not found!');
+        return;
+    }
     
-    // 콘텐츠를 파싱하여 접을 수 있는 섹션으로 변환
-    const processedContent = processConceptContent(chapter.content);
-    conceptContent.innerHTML = processedContent;
+    // 일단 원본 내용을 그대로 표시 (섹션 파싱 비활성화)
+    if (chapter.content) {
+        // 내용이 제대로 있는지 확인
+        console.log('Setting content, length:', chapter.content.length);
+        console.log('First 200 chars:', chapter.content.substring(0, 200));
+        
+        conceptContent.innerHTML = chapter.content;
+        
+        // 내용이 제대로 설정되었는지 확인
+        console.log('Content set, innerHTML length:', conceptContent.innerHTML.length);
+        console.log('Content element:', conceptContent);
+        console.log('Content visible:', conceptContent.offsetHeight > 0);
+        
+        // 강제로 표시
+        conceptContent.style.display = 'block';
+        conceptContent.style.visibility = 'visible';
+        conceptContent.style.opacity = '1';
+    } else {
+        console.error('Chapter content is empty!');
+        conceptContent.innerHTML = '<p style="color: red; font-size: 20px;">내용을 불러올 수 없습니다.</p>';
+    }
     
-    // 목차 생성
-    createTableOfContents(conceptContent);
+    // 목차 생성 (섹션이 없으면 생성하지 않음)
+    // createTableOfContents(conceptContent);
     
-    // 접기/펼치기 이벤트 리스너 추가
-    attachCollapseListeners(conceptContent);
+    // 접기/펼치기 이벤트 리스너 추가 (섹션이 없으면 추가하지 않음)
+    // attachCollapseListeners(conceptContent);
     
     // MathJax 재렌더링
     if (window.MathJax) {
         MathJax.typesetPromise([conceptContent]).then(() => {
+            console.log('MathJax rendering completed');
             // 그래프 생성
             createGraphsForContent(chapterId);
+        }).catch(err => {
+            console.error('MathJax rendering error:', err);
         });
+    } else {
+        console.warn('MathJax not loaded');
     }
 }
 
 // 콘텐츠를 접을 수 있는 섹션으로 변환
 function processConceptContent(content) {
-    // 임시 div를 사용하여 HTML 파싱
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
+    // 임시 컨테이너 생성
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = content;
     
-    // h3 태그들을 찾아서 각 섹션을 접을 수 있게 래핑
-    const h3Elements = Array.from(tempDiv.querySelectorAll('h3'));
+    // h2 제목 추출
+    const h2 = tempContainer.querySelector('h2');
+    const mainTitle = h2 ? h2.outerHTML : '';
+    
+    // 모든 h3 요소 찾기
+    const h3Elements = Array.from(tempContainer.querySelectorAll('h3'));
     
     if (h3Elements.length === 0) {
         // h3가 없으면 원본 내용 그대로 사용
@@ -163,36 +205,33 @@ function processConceptContent(content) {
         const sectionId = `section-${index}`;
         const sectionTitle = h3.textContent.trim();
         
-        // h3부터 다음 h3 또는 끝까지의 내용을 가져옴
-        let sectionContent = '';
+        // 임시 컨테이너를 만들어서 이 섹션의 내용만 추출
+        const sectionContainer = document.createElement('div');
         let currentNode = h3.nextSibling;
         
+        // h3 다음부터 다음 h3 전까지의 모든 노드를 sectionContainer에 추가
         while (currentNode) {
             // 다음 h3를 만나면 중단
             if (currentNode.nodeType === Node.ELEMENT_NODE && currentNode.tagName === 'H3') {
                 break;
             }
             
-            // 노드 복사
-            if (currentNode.nodeType === Node.ELEMENT_NODE) {
-                sectionContent += currentNode.outerHTML;
-            } else if (currentNode.nodeType === Node.TEXT_NODE && currentNode.textContent.trim()) {
-                sectionContent += currentNode.textContent;
-            }
+            // 노드를 복제하여 sectionContainer에 추가
+            const clonedNode = currentNode.cloneNode(true);
+            sectionContainer.appendChild(clonedNode);
             
             currentNode = currentNode.nextSibling;
         }
         
+        // sectionContainer의 innerHTML을 가져옴
+        const sectionContent = sectionContainer.innerHTML.trim();
+        
         sections.push({
             id: sectionId,
             title: sectionTitle,
-            content: sectionContent.trim()
+            content: sectionContent
         });
     });
-    
-    // h2 제목 가져오기
-    const h2 = tempDiv.querySelector('h2');
-    const mainTitle = h2 ? h2.outerHTML : '';
     
     // 접을 수 있는 섹션으로 재구성
     let processedHTML = mainTitle;
@@ -201,10 +240,10 @@ function processConceptContent(content) {
         processedHTML += `
             <div class="concept-section-collapsible">
                 <button class="section-toggle" data-section="${section.id}">
-                    <i class="fas fa-chevron-down"></i>
+                    <i class="fas fa-chevron-up"></i>
                     <span>${section.title}</span>
                 </button>
-                <div class="section-content collapsed" id="${section.id}">
+                <div class="section-content" id="${section.id}">
                     ${section.content}
                 </div>
             </div>
