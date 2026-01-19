@@ -139,33 +139,15 @@ function loadConceptContent(subject, chapterId) {
         return;
     }
     
-    // 일단 원본 내용을 그대로 표시 (섹션 파싱 비활성화)
-    if (chapter.content) {
-        // 내용이 제대로 있는지 확인
-        console.log('Setting content, length:', chapter.content.length);
-        console.log('First 200 chars:', chapter.content.substring(0, 200));
-        
-        conceptContent.innerHTML = chapter.content;
-        
-        // 내용이 제대로 설정되었는지 확인
-        console.log('Content set, innerHTML length:', conceptContent.innerHTML.length);
-        console.log('Content element:', conceptContent);
-        console.log('Content visible:', conceptContent.offsetHeight > 0);
-        
-        // 강제로 표시
-        conceptContent.style.display = 'block';
-        conceptContent.style.visibility = 'visible';
-        conceptContent.style.opacity = '1';
-    } else {
-        console.error('Chapter content is empty!');
-        conceptContent.innerHTML = '<p style="color: red; font-size: 20px;">내용을 불러올 수 없습니다.</p>';
-    }
+    // 콘텐츠를 파싱하여 접을 수 있는 섹션으로 변환
+    const processedContent = processConceptContent(chapter.content);
+    conceptContent.innerHTML = processedContent;
     
-    // 목차 생성 (섹션이 없으면 생성하지 않음)
-    // createTableOfContents(conceptContent);
+    // 목차 생성
+    createTableOfContents(conceptContent);
     
-    // 접기/펼치기 이벤트 리스너 추가 (섹션이 없으면 추가하지 않음)
-    // attachCollapseListeners(conceptContent);
+    // 접기/펼치기 이벤트 리스너 추가
+    attachCollapseListeners(conceptContent);
     
     // MathJax 재렌더링
     if (window.MathJax) {
@@ -205,6 +187,9 @@ function processConceptContent(content) {
         const sectionId = `section-${index}`;
         const sectionTitle = h3.textContent.trim();
         
+        // 현재 h3의 다음 h3를 찾기
+        const nextH3 = h3Elements[index + 1];
+        
         // 임시 컨테이너를 만들어서 이 섹션의 내용만 추출
         const sectionContainer = document.createElement('div');
         let currentNode = h3.nextSibling;
@@ -212,7 +197,7 @@ function processConceptContent(content) {
         // h3 다음부터 다음 h3 전까지의 모든 노드를 sectionContainer에 추가
         while (currentNode) {
             // 다음 h3를 만나면 중단
-            if (currentNode.nodeType === Node.ELEMENT_NODE && currentNode.tagName === 'H3') {
+            if (nextH3 && currentNode === nextH3) {
                 break;
             }
             
@@ -221,6 +206,11 @@ function processConceptContent(content) {
             sectionContainer.appendChild(clonedNode);
             
             currentNode = currentNode.nextSibling;
+            
+            // 다음 h3에 도달했는지 확인
+            if (nextH3 && currentNode === nextH3) {
+                break;
+            }
         }
         
         // sectionContainer의 innerHTML을 가져옴
