@@ -1270,8 +1270,235 @@ const mathData = {
                     <h3>3. 고차방정식</h3>
                     <p>삼차 이상의 방정식을 고차방정식이라고 합니다.</p>
                     
+                    <h4>3.1 삼차방정식</h4>
+                    <p>삼차방정식은 $ax^3 + bx^2 + cx + d = 0$ ($a \\neq 0$) 형태의 방정식입니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>삼차방정식의 일반형:</strong> $ax^3 + bx^2 + cx + d = 0$ ($a \\neq 0$)</p>
+                    </div>
+                    
+                    <p><strong>삼차방정식의 풀이 방법:</strong></p>
+                    <ol>
+                        <li><strong>인수분해를 이용한 풀이:</strong> 공통인수나 인수정리를 이용하여 인수분해한 후 각 인수를 0으로 만드는 값을 구합니다.</li>
+                        <li><strong>인수정리:</strong> $f(\\alpha) = 0$이면 $f(x)$는 $(x - \\alpha)$를 인수로 가집니다.</li>
+                        <li><strong>조립제법:</strong> 한 근을 알 때 나머지 근을 구하는 방법입니다.</li>
+                    </ol>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 1:</strong> $x^3 - 6x^2 + 11x - 6 = 0$</p>
+                        <p>인수정리를 이용하면 $f(1) = 1 - 6 + 11 - 6 = 0$이므로 $(x-1)$을 인수로 가집니다.</p>
+                        <p>조립제법을 이용하여 인수분해하면:</p>
+                        <p>$(x-1)(x^2 - 5x + 6) = 0$</p>
+                        <p>$(x-1)(x-2)(x-3) = 0$</p>
+                        <p>따라서 $x = 1, 2, 3$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 2:</strong> $x^3 - 8 = 0$</p>
+                        <p>인수분해 공식: $a^3 - b^3 = (a-b)(a^2 + ab + b^2)$</p>
+                        <p>$x^3 - 8 = (x-2)(x^2 + 2x + 4) = 0$</p>
+                        <p>$x - 2 = 0$ 또는 $x^2 + 2x + 4 = 0$</p>
+                        <p>$x = 2$ 또는 $x = \\frac{-2 \\pm \\sqrt{4-16}}{2} = \\frac{-2 \\pm 2\\sqrt{3}i}{2} = -1 \\pm \\sqrt{3}i$</p>
+                    </div>
+                    
+                    <h4>3.2 사차방정식</h4>
+                    <p>사차방정식은 $ax^4 + bx^3 + cx^2 + dx + e = 0$ ($a \\neq 0$) 형태의 방정식입니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>사차방정식의 일반형:</strong> $ax^4 + bx^3 + cx^2 + dx + e = 0$ ($a \\neq 0$)</p>
+                    </div>
+                    
+                    <p><strong>사차방정식의 풀이 방법:</strong></p>
+                    <ol>
+                        <li><strong>인수분해를 이용한 풀이:</strong> 공통인수나 인수정리를 이용하여 인수분해합니다.</li>
+                        <li><strong>이차식의 제곱 형태:</strong> $(x^2 + px + q)^2 = 0$ 형태로 변형하여 풉니다.</li>
+                        <li><strong>치환을 이용한 풀이:</strong> $x^2 = t$로 치환하여 이차방정식으로 변형합니다.</li>
+                        <li><strong>대칭형 사차방정식:</strong> $ax^4 + bx^3 + cx^2 + bx + a = 0$ 형태는 $x + \\frac{1}{x} = t$로 치환합니다.</li>
+                    </ol>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 1:</strong> $x^4 - 5x^2 + 4 = 0$</p>
+                        <p>$x^2 = t$로 치환하면 $t^2 - 5t + 4 = 0$</p>
+                        <p>$(t-1)(t-4) = 0$이므로 $t = 1$ 또는 $t = 4$</p>
+                        <p>$x^2 = 1$ 또는 $x^2 = 4$</p>
+                        <p>따라서 $x = \\pm 1$ 또는 $x = \\pm 2$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 2:</strong> $x^4 - 13x^2 + 36 = 0$</p>
+                        <p>$x^2 = t$로 치환하면 $t^2 - 13t + 36 = 0$</p>
+                        <p>$(t-4)(t-9) = 0$이므로 $t = 4$ 또는 $t = 9$</p>
+                        <p>$x^2 = 4$ 또는 $x^2 = 9$</p>
+                        <p>따라서 $x = \\pm 2$ 또는 $x = \\pm 3$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 3:</strong> $x^4 + 2x^3 - x^2 - 2x = 0$</p>
+                        <p>공통인수 $x$를 빼면: $x(x^3 + 2x^2 - x - 2) = 0$</p>
+                        <p>$x = 0$ 또는 $x^3 + 2x^2 - x - 2 = 0$</p>
+                        <p>$x^3 + 2x^2 - x - 2 = (x+2)(x^2 - 1) = (x+2)(x-1)(x+1)$</p>
+                        <p>따라서 $x = 0, -2, 1, -1$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>대칭형 사차방정식 예제:</strong> $x^4 - 5x^3 + 6x^2 - 5x + 1 = 0$</p>
+                        <p>$x = 0$이 근이 아니므로 양변을 $x^2$으로 나누면:</p>
+                        <p>$x^2 - 5x + 6 - \\frac{5}{x} + \\frac{1}{x^2} = 0$</p>
+                        <p>$(x^2 + \\frac{1}{x^2}) - 5(x + \\frac{1}{x}) + 6 = 0$</p>
+                        <p>$x + \\frac{1}{x} = t$로 치환하면 $x^2 + \\frac{1}{x^2} = t^2 - 2$</p>
+                        <p>$t^2 - 2 - 5t + 6 = t^2 - 5t + 4 = 0$</p>
+                        <p>$(t-1)(t-4) = 0$이므로 $t = 1$ 또는 $t = 4$</p>
+                        <p>$x + \\frac{1}{x} = 1$ 또는 $x + \\frac{1}{x} = 4$</p>
+                        <p>$x^2 - x + 1 = 0$ 또는 $x^2 - 4x + 1 = 0$</p>
+                        <p>$x = \\frac{1 \\pm \\sqrt{1-4}}{2} = \\frac{1 \\pm \\sqrt{3}i}{2}$ 또는 $x = \\frac{4 \\pm \\sqrt{16-4}}{2} = \\frac{4 \\pm 2\\sqrt{3}}{2} = 2 \\pm \\sqrt{3}$</p>
+                    </div>
+                    
+                    <p><strong>고차방정식의 근과 계수의 관계:</strong></p>
+                    <div class="math-display">
+                        <p><strong>삼차방정식 $ax^3 + bx^2 + cx + d = 0$의 세 근을 $\\alpha, \\beta, \\gamma$라 하면:</strong></p>
+                        <p>① $\\alpha + \\beta + \\gamma = -\\frac{b}{a}$</p>
+                        <p>② $\\alpha\\beta + \\beta\\gamma + \\gamma\\alpha = \\frac{c}{a}$</p>
+                        <p>③ $\\alpha\\beta\\gamma = -\\frac{d}{a}$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>사차방정식 $ax^4 + bx^3 + cx^2 + dx + e = 0$의 네 근을 $\\alpha, \\beta, \\gamma, \\delta$라 하면:</strong></p>
+                        <p>① $\\alpha + \\beta + \\gamma + \\delta = -\\frac{b}{a}$</p>
+                        <p>② $\\alpha\\beta + \\alpha\\gamma + \\alpha\\delta + \\beta\\gamma + \\beta\\delta + \\gamma\\delta = \\frac{c}{a}$</p>
+                        <p>③ $\\alpha\\beta\\gamma + \\alpha\\beta\\delta + \\alpha\\gamma\\delta + \\beta\\gamma\\delta = -\\frac{d}{a}$</p>
+                        <p>④ $\\alpha\\beta\\gamma\\delta = \\frac{e}{a}$</p>
+                    </div>
+                    
                     <h3>4. 연립방정식</h3>
                     <p>여러 개의 방정식을 동시에 만족하는 해를 구하는 문제입니다.</p>
+                    
+                    <h4>4.1 연립일차방정식</h4>
+                    <p>두 개 이상의 일차방정식을 동시에 만족하는 해를 구하는 문제입니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>연립일차방정식의 일반형:</strong></p>
+                        <p>$\\begin{cases} a_1x + b_1y = c_1 \\\\ a_2x + b_2y = c_2 \\end{cases}$</p>
+                    </div>
+                    
+                    <p><strong>연립일차방정식의 풀이 방법:</strong></p>
+                    <ol>
+                        <li><strong>가감법:</strong> 두 방정식을 더하거나 빼서 한 미지수를 소거합니다.</li>
+                        <li><strong>대입법:</strong> 한 방정식에서 한 미지수를 다른 미지수로 나타낸 후 다른 방정식에 대입합니다.</li>
+                        <li><strong>소거법:</strong> 계수를 맞춰서 가감법을 적용합니다.</li>
+                    </ol>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 1 (가감법):</strong> $\\begin{cases} 2x + 3y = 7 \\\\ x - y = 1 \\end{cases}$</p>
+                        <p>두 번째 방정식에 3을 곱하면: $3x - 3y = 3$</p>
+                        <p>첫 번째 방정식과 더하면: $(2x + 3y) + (3x - 3y) = 7 + 3$</p>
+                        <p>$5x = 10$이므로 $x = 2$</p>
+                        <p>$x = 2$를 두 번째 방정식에 대입하면: $2 - y = 1$</p>
+                        <p>따라서 $y = 1$</p>
+                        <p>답: $(x, y) = (2, 1)$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 2 (대입법):</strong> $\\begin{cases} x + 2y = 5 \\\\ 3x - y = 1 \\end{cases}$</p>
+                        <p>첫 번째 방정식에서 $x = 5 - 2y$</p>
+                        <p>두 번째 방정식에 대입하면: $3(5 - 2y) - y = 1$</p>
+                        <p>$15 - 6y - y = 1$</p>
+                        <p>$-7y = -14$이므로 $y = 2$</p>
+                        <p>$x = 5 - 2(2) = 1$</p>
+                        <p>답: $(x, y) = (1, 2)$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 3 (소거법):</strong> $\\begin{cases} 3x + 4y = 10 \\\\ 2x - 5y = -3 \\end{cases}$</p>
+                        <p>첫 번째 방정식에 2를 곱하고, 두 번째 방정식에 3을 곱하면:</p>
+                        <p>$\\begin{cases} 6x + 8y = 20 \\\\ 6x - 15y = -9 \\end{cases}$</p>
+                        <p>두 방정식을 빼면: $(6x + 8y) - (6x - 15y) = 20 - (-9)$</p>
+                        <p>$23y = 29$이므로 $y = \\frac{29}{23}$</p>
+                        <p>첫 번째 방정식에 대입하면: $3x + 4 \\cdot \\frac{29}{23} = 10$</p>
+                        <p>$3x = 10 - \\frac{116}{23} = \\frac{230 - 116}{23} = \\frac{114}{23}$</p>
+                        <p>$x = \\frac{38}{23}$</p>
+                        <p>답: $(x, y) = (\\frac{38}{23}, \\frac{29}{23})$</p>
+                    </div>
+                    
+                    <h4>4.2 연립삼원일차방정식</h4>
+                    <p>세 개의 미지수를 가진 일차방정식 세 개를 연립하여 푸는 문제입니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>연립삼원일차방정식의 일반형:</strong></p>
+                        <p>$\\begin{cases} a_1x + b_1y + c_1z = d_1 \\\\ a_2x + b_2y + c_2z = d_2 \\\\ a_3x + b_3y + c_3z = d_3 \\end{cases}$</p>
+                    </div>
+                    
+                    <p><strong>풀이 방법:</strong> 한 미지수를 소거하여 연립이원일차방정식으로 만든 후 풉니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>예제:</strong> $\\begin{cases} x + y + z = 6 \\\\ 2x - y + z = 3 \\\\ x + 2y - z = 2 \\end{cases}$</p>
+                        <p>첫 번째와 두 번째 방정식을 빼면: $(x + y + z) - (2x - y + z) = 6 - 3$</p>
+                        <p>$-x + 2y = 3$ → $x = 2y - 3$ ... ①</p>
+                        <p>첫 번째와 세 번째 방정식을 더하면: $(x + y + z) + (x + 2y - z) = 6 + 2$</p>
+                        <p>$2x + 3y = 8$ ... ②</p>
+                        <p>①을 ②에 대입하면: $2(2y - 3) + 3y = 8$</p>
+                        <p>$4y - 6 + 3y = 8$</p>
+                        <p>$7y = 14$이므로 $y = 2$</p>
+                        <p>$x = 2(2) - 3 = 1$</p>
+                        <p>첫 번째 방정식에 대입하면: $1 + 2 + z = 6$</p>
+                        <p>$z = 3$</p>
+                        <p>답: $(x, y, z) = (1, 2, 3)$</p>
+                    </div>
+                    
+                    <h4>4.3 연립이차방정식</h4>
+                    <p>이차방정식과 일차방정식, 또는 두 이차방정식을 연립하여 푸는 문제입니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>유형 1: 일차방정식과 이차방정식의 연립</strong></p>
+                        <p>$\\begin{cases} ax + by + c = 0 \\\\ dx^2 + exy + fy^2 + gx + hy + i = 0 \\end{cases}$</p>
+                    </div>
+                    
+                    <p><strong>풀이 방법:</strong> 일차방정식에서 한 미지수를 다른 미지수로 나타낸 후 이차방정식에 대입합니다.</p>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 1:</strong> $\\begin{cases} x + y = 3 \\\\ x^2 + y^2 = 5 \\end{cases}$</p>
+                        <p>첫 번째 방정식에서 $y = 3 - x$</p>
+                        <p>두 번째 방정식에 대입하면: $x^2 + (3-x)^2 = 5$</p>
+                        <p>$x^2 + 9 - 6x + x^2 = 5$</p>
+                        <p>$2x^2 - 6x + 4 = 0$</p>
+                        <p>$x^2 - 3x + 2 = 0$</p>
+                        <p>$(x-1)(x-2) = 0$</p>
+                        <p>$x = 1$ 또는 $x = 2$</p>
+                        <p>$x = 1$이면 $y = 2$, $x = 2$이면 $y = 1$</p>
+                        <p>답: $(x, y) = (1, 2), (2, 1)$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>예제 2:</strong> $\\begin{cases} x - 2y = 1 \\\\ x^2 + xy - 2y^2 = 0 \\end{cases}$</p>
+                        <p>첫 번째 방정식에서 $x = 2y + 1$</p>
+                        <p>두 번째 방정식에 대입하면: $(2y + 1)^2 + (2y + 1)y - 2y^2 = 0$</p>
+                        <p>$4y^2 + 4y + 1 + 2y^2 + y - 2y^2 = 0$</p>
+                        <p>$4y^2 + 5y + 1 = 0$</p>
+                        <p>$(4y + 1)(y + 1) = 0$</p>
+                        <p>$y = -\\frac{1}{4}$ 또는 $y = -1$</p>
+                        <p>$y = -\\frac{1}{4}$이면 $x = 2(-\\frac{1}{4}) + 1 = \\frac{1}{2}$</p>
+                        <p>$y = -1$이면 $x = 2(-1) + 1 = -1$</p>
+                        <p>답: $(x, y) = (\\frac{1}{2}, -\\frac{1}{4}), (-1, -1)$</p>
+                    </div>
+                    
+                    <div class="math-display">
+                        <p><strong>유형 2: 두 이차방정식의 연립</strong></p>
+                        <p>$\\begin{cases} x^2 + y^2 = 13 \\\\ xy = 6 \\end{cases}$</p>
+                        <p>$(x + y)^2 = x^2 + 2xy + y^2 = 13 + 12 = 25$</p>
+                        <p>$x + y = \\pm 5$</p>
+                        <p>따라서 $x + y = 5$ 또는 $x + y = -5$</p>
+                        <p>각각 $xy = 6$과 연립하면:</p>
+                        <p>① $x + y = 5$, $xy = 6$인 경우: $x, y$는 $t^2 - 5t + 6 = 0$의 근</p>
+                        <p>$(t-2)(t-3) = 0$이므로 $(x, y) = (2, 3), (3, 2)$</p>
+                        <p>② $x + y = -5$, $xy = 6$인 경우: $x, y$는 $t^2 + 5t + 6 = 0$의 근</p>
+                        <p>$(t+2)(t+3) = 0$이므로 $(x, y) = (-2, -3), (-3, -2)$</p>
+                        <p>답: $(x, y) = (2, 3), (3, 2), (-2, -3), (-3, -2)$</p>
+                    </div>
+                    
+                    <p><strong>연립방정식의 해의 개수:</strong></p>
+                    <ul>
+                        <li><strong>연립일차방정식:</strong> 해가 1개(유일해), 무수히 많음(부정), 없음(불능)</li>
+                        <li><strong>연립이차방정식:</strong> 일반적으로 0개, 1개, 2개, 3개, 4개의 해가 가능</li>
+                    </ul>
                     
                     <h3>5. 부등식</h3>
                     <p>부등식의 성질을 이용하여 해를 구할 수 있습니다.</p>

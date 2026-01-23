@@ -139,25 +139,41 @@ function loadConceptContent(subject, chapterId) {
         return;
     }
     
+    // 강제로 표시 설정
+    conceptContent.style.display = 'block';
+    conceptContent.style.visibility = 'visible';
+    conceptContent.style.opacity = '1';
+    conceptContent.style.height = 'auto';
+    conceptContent.style.overflow = 'visible';
+    
     // 콘텐츠를 파싱하여 접을 수 있는 섹션으로 변환
-    const processedContent = processConceptContent(chapter.content);
-    conceptContent.innerHTML = processedContent;
-    
-    // 목차 생성
-    createTableOfContents(conceptContent);
-    
-    // 접기/펼치기 이벤트 리스너 추가
-    attachCollapseListeners(conceptContent);
+    if (chapter.content && chapter.content.trim()) {
+        const processedContent = processConceptContent(chapter.content);
+        conceptContent.innerHTML = processedContent;
+        
+        // 목차 생성
+        createTableOfContents(conceptContent);
+        
+        // 접기/펼치기 이벤트 리스너 추가
+        attachCollapseListeners(conceptContent);
+        
+        console.log('Content processed and set');
+    } else {
+        console.error('Chapter content is empty!');
+        conceptContent.innerHTML = '<div style="padding: 20px; color: red; font-size: 18px;"><h2>⚠️ 내용을 불러올 수 없습니다</h2><p>챕터 내용이 비어있습니다.</p></div>';
+    }
     
     // MathJax 재렌더링
     if (window.MathJax) {
-        MathJax.typesetPromise([conceptContent]).then(() => {
-            console.log('MathJax rendering completed');
-            // 그래프 생성
-            createGraphsForContent(chapterId);
-        }).catch(err => {
-            console.error('MathJax rendering error:', err);
-        });
+        setTimeout(() => {
+            MathJax.typesetPromise([conceptContent]).then(() => {
+                console.log('MathJax rendering completed');
+                // 그래프 생성
+                createGraphsForContent(chapterId);
+            }).catch(err => {
+                console.error('MathJax rendering error:', err);
+            });
+        }, 100);
     } else {
         console.warn('MathJax not loaded');
     }
@@ -165,56 +181,54 @@ function loadConceptContent(subject, chapterId) {
 
 // 콘텐츠를 접을 수 있는 섹션으로 변환
 function processConceptContent(content) {
-    // 임시 컨테이너 생성
-    const tempContainer = document.createElement('div');
-    tempContainer.innerHTML = content;
-    
     // h2 제목 추출
-    const h2 = tempContainer.querySelector('h2');
-    const mainTitle = h2 ? h2.outerHTML : '';
+    const h2Match = content.match(/<h2[^>]*>.*?<\/h2>/is);
+    const mainTitle = h2Match ? h2Match[0] : '';
     
-    // 모든 h3 요소 찾기
-    const h3Elements = Array.from(tempContainer.querySelectorAll('h3'));
+    // h3 태그로 섹션 분리 - 더 정확한 정규식 사용
+    // h3 태그를 모두 찾기 (여러 줄에 걸쳐 있을 수 있으므로 [\s\S] 사용)
+    const h3Pattern = /<h3[^>]*>([\s\S]*?)<\/h3>/gi;
+    const h3Matches = [];
+    let match;
     
-    if (h3Elements.length === 0) {
+    // 모든 h3 태그 찾기
+    while ((match = h3Pattern.exec(content)) !== null) {
+        h3Matches.push({
+            title: match[1].replace(/<[^>]+>/g, '').trim(), // HTML 태그 제거
+            startIndex: match.index,
+            endIndex: match.index + match[0].length,
+            fullMatch: match[0]
+        });
+    }
+    
+    if (h3Matches.length === 0) {
         // h3가 없으면 원본 내용 그대로 사용
         return content;
     }
     
     const sections = [];
     
-    h3Elements.forEach((h3, index) => {
-        const sectionId = `section-${index}`;
-        const sectionTitle = h3.textContent.trim();
+    // 각 섹션의 내용 추출
+    h3Matches.forEach((h3Match, idx) => {
+        const sectionId = `section-${idx}`;
+        const sectionTitle = h3Match.title;
         
-        // 현재 h3의 다음 h3를 찾기
-        const nextH3 = h3Elements[index + 1];
+        // 현재 h3 다음부터 다음 h3 전까지의 내용 추출
+        const contentStart = h3Match.endIndex;
+        const contentEnd = idx < h3Matches.length - 1 
+            ? h3Matches[idx + 1].startIndex 
+            : content.length;
         
-        // 임시 컨테이너를 만들어서 이 섹션의 내용만 추출
-        const sectionContainer = document.createElement('div');
-        let currentNode = h3.nextSibling;
+        // 내용 추출 (앞뒤 공백 제거)
+        let sectionContent = content.substring(contentStart, contentEnd).trim();
         
-        // h3 다음부터 다음 h3 전까지의 모든 노드를 sectionContainer에 추가
-        while (currentNode) {
-            // 다음 h3를 만나면 중단
-            if (nextH3 && currentNode === nextH3) {
-                break;
-            }
-            
-            // 노드를 복제하여 sectionContainer에 추가
-            const clonedNode = currentNode.cloneNode(true);
-            sectionContainer.appendChild(clonedNode);
-            
-            currentNode = currentNode.nextSibling;
-            
-            // 다음 h3에 도달했는지 확인
-            if (nextH3 && currentNode === nextH3) {
-                break;
-            }
+        // 디버깅: 고차방정식 섹션 확인
+        if (sectionTitle.includes('고차방정식')) {
+            console.log('고차방정식 섹션 내용 길이:', sectionContent.length);
+            console.log('고차방정식 섹션 내용 처음 500자:', sectionContent.substring(0, 500));
+            console.log('고차방정식 섹션에 삼차방정식 포함:', sectionContent.includes('삼차방정식'));
+            console.log('고차방정식 섹션에 사차방정식 포함:', sectionContent.includes('사차방정식'));
         }
-        
-        // sectionContainer의 innerHTML을 가져옴
-        const sectionContent = sectionContainer.innerHTML.trim();
         
         sections.push({
             id: sectionId,
@@ -222,6 +236,9 @@ function processConceptContent(content) {
             content: sectionContent
         });
     });
+    
+    console.log('총 섹션 개수:', sections.length);
+    console.log('섹션 제목들:', sections.map(s => s.title));
     
     // 접을 수 있는 섹션으로 재구성
     let processedHTML = mainTitle;
