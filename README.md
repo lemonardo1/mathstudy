@@ -134,3 +134,4 @@ npm run preview
 ## 라이선스
 
 이 프로젝트는 교육 목적으로 제작되었습니다.
+# mathstudy
