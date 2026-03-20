@@ -1,5 +1,909 @@
 // 수학 콘텐츠 데이터베이스
 const mathData = {
+    // ========== 중등수학 ==========
+    'math-mid-1-1': {
+        title: '중1-1 (대수)',
+        chapters: [
+            {
+                id: 'mid1-prime-factorization',
+                title: '소인수분해',
+                content: `
+                    <h2>소인수분해</h2>
+
+                    <h3>1. 소수와 합성수</h3>
+                    <p><strong>소수(prime number)</strong>: 1보다 큰 자연수 중에서 1과 자기 자신만을 약수로 가지는 수</p>
+                    <p><strong>합성수(composite number)</strong>: 소수가 아닌 1보다 큰 자연수 (세 개 이상의 약수를 가짐)</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>소수: 2, 3, 5, 7, 11, 13, 17, 19, …</p>
+                        <p>합성수: 4, 6, 8, 9, 10, 12, …</p>
+                        <p>주의: 1은 소수도 합성수도 아닙니다.</p>
+                    </div>
+
+                    <h3>2. 소인수분해</h3>
+                    <p>자연수를 소수들의 곱으로 나타내는 것을 <strong>소인수분해</strong>라고 합니다. 소인수분해의 결과는 순서에 관계없이 유일합니다.</p>
+                    <div class="math-display">
+                        $12 = 2^2 \\times 3$, $\\quad 60 = 2^2 \\times 3 \\times 5$
+                    </div>
+                    <div class="example-box">
+                        <h4>소인수분해 방법 (나눗셈 이용)</h4>
+                        <p>$180 = 2 \\times 90 = 2 \\times 2 \\times 45 = 2^2 \\times 3^2 \\times 5$</p>
+                    </div>
+
+                    <h3>3. 약수의 개수와 약수의 합</h3>
+                    <p>$N = p^a \\times q^b$ ($p$, $q$: 소수)일 때:</p>
+                    <div class="math-display">
+                        <p>약수의 개수: $(a+1)(b+1)$</p>
+                        <p>약수의 합: $\\frac{p^{a+1}-1}{p-1} \\times \\frac{q^{b+1}-1}{q-1}$</p>
+                    </div>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$12 = 2^2 \\times 3$의 약수의 개수: $(2+1)(1+1) = 6$</p>
+                        <p>약수: 1, 2, 3, 4, 6, 12</p>
+                    </div>
+
+                    <h3>4. 최대공약수(GCD)와 최소공배수(LCM)</h3>
+                    <p><strong>최대공약수(GCD)</strong>: 두 수의 공약수 중 가장 큰 수 → 소인수분해 후 공통인 소인수의 최솟값의 곱</p>
+                    <p><strong>최소공배수(LCM)</strong>: 두 수의 공배수 중 가장 작은 수 → 소인수분해 후 각 소인수의 최댓값의 곱</p>
+                    <div class="math-display">
+                        $12 = 2^2 \\times 3$, $\\quad 18 = 2 \\times 3^2$<br>
+                        $\\text{GCD} = 2 \\times 3 = 6$, $\\quad \\text{LCM} = 2^2 \\times 3^2 = 36$
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-integer-rational',
+                title: '정수와 유리수',
+                content: `
+                    <h2>정수와 유리수</h2>
+
+                    <h3>1. 정수</h3>
+                    <p>양의 정수(자연수), 0, 음의 정수를 통틀어 <strong>정수</strong>라고 합니다.</p>
+                    <div class="math-display">
+                        $\\cdots, -3, -2, -1, 0, 1, 2, 3, \\cdots$
+                    </div>
+
+                    <h3>2. 유리수</h3>
+                    <p><strong>유리수</strong>: $\\frac{a}{b}$ ($a$, $b$는 정수, $b \\neq 0$) 꼴로 나타낼 수 있는 수</p>
+                    <p>정수, 유한소수, 순환소수는 모두 유리수입니다.</p>
+                    <div class="example-box">
+                        <h4>유리수의 분류</h4>
+                        <p>양의 유리수: $\\frac{1}{2}$, $3$, $0.5$, …</p>
+                        <p>0</p>
+                        <p>음의 유리수: $-\\frac{3}{4}$, $-2$, $-1.5$, …</p>
+                    </div>
+
+                    <h3>3. 절댓값</h3>
+                    <p>수직선에서 원점까지의 거리를 <strong>절댓값</strong>이라 하고 $|a|$로 나타냅니다.</p>
+                    <div class="math-display">
+                        $|3| = 3$, $\\quad |-5| = 5$, $\\quad |0| = 0$
+                    </div>
+
+                    <h3>4. 정수와 유리수의 사칙연산</h3>
+                    <p><strong>덧셈·뺄셈</strong>: 부호 규칙에 따라 계산</p>
+                    <p><strong>곱셈·나눗셈</strong>: (양수)×(양수)=양수, (음수)×(음수)=양수, (양수)×(음수)=음수</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$(-3) \\times (-4) = 12$</p>
+                        <p>$(-6) \\div 2 = -3$</p>
+                        <p>$\\frac{2}{3} \\div \\left(-\\frac{4}{9}\\right) = \\frac{2}{3} \\times \\left(-\\frac{9}{4}\\right) = -\\frac{3}{2}$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-expression',
+                title: '문자의 사용과 식',
+                content: `
+                    <h2>문자의 사용과 식</h2>
+
+                    <h3>1. 문자의 사용</h3>
+                    <p>수량 관계를 문자를 이용하여 간결하게 나타낼 수 있습니다.</p>
+                    <div class="example-box">
+                        <h4>곱셈 기호의 생략</h4>
+                        <p>$a \\times b = ab$, $\\quad 3 \\times x = 3x$, $\\quad a \\times a = a^2$</p>
+                        <p>$1 \\times a = a$, $\\quad (-1) \\times a = -a$</p>
+                    </div>
+
+                    <h3>2. 일차식</h3>
+                    <p>항이 문자를 포함하고 최고차수가 1인 다항식을 <strong>일차식</strong>이라 합니다.</p>
+                    <div class="math-display">
+                        $3x + 2$, $\\quad -5a + 7$, $\\quad 2y - 1$
+                    </div>
+
+                    <h3>3. 일차식의 계산</h3>
+                    <p>동류항(문자 부분이 같은 항)끼리 계산합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$(3x + 2) + (5x - 4) = 8x - 2$</p>
+                        <p>$2(3x - 1) - 3(x + 2) = 6x - 2 - 3x - 6 = 3x - 8$</p>
+                    </div>
+
+                    <h3>4. 식의 값</h3>
+                    <p>문자에 특정 수를 대입하여 식의 값을 구합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$x = -2$일 때, $3x^2 - x + 1$의 값:</p>
+                        <p>$3(-2)^2 - (-2) + 1 = 12 + 2 + 1 = 15$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-linear-equation',
+                title: '일차방정식',
+                content: `
+                    <h2>일차방정식</h2>
+
+                    <h3>1. 방정식과 항등식</h3>
+                    <p><strong>방정식</strong>: 미지수의 값에 따라 참/거짓이 결정되는 등식</p>
+                    <p><strong>항등식</strong>: 미지수에 어떤 값을 넣어도 항상 참인 등식</p>
+
+                    <h3>2. 등식의 성질</h3>
+                    <div class="math-display">
+                        <p>$A = B \\Rightarrow A + C = B + C$</p>
+                        <p>$A = B \\Rightarrow A - C = B - C$</p>
+                        <p>$A = B \\Rightarrow AC = BC$</p>
+                        <p>$A = B, C \\neq 0 \\Rightarrow \\frac{A}{C} = \\frac{B}{C}$</p>
+                    </div>
+
+                    <h3>3. 일차방정식의 풀이</h3>
+                    <p>미지수를 포함한 항은 좌변으로, 상수항은 우변으로 이항하여 풀이합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$3x - 4 = 2x + 5$</p>
+                        <p>$3x - 2x = 5 + 4$</p>
+                        <p>$x = 9$</p>
+                    </div>
+
+                    <h3>4. 일차방정식의 활용</h3>
+                    <p>문제의 조건을 문자로 놓고 방정식을 세워 풉니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>연속하는 두 홀수의 합이 36일 때, 두 홀수를 구하시오.</p>
+                        <p>작은 홀수를 $x$라 하면 큰 홀수는 $x+2$</p>
+                        <p>$x + (x+2) = 36 \\Rightarrow 2x = 34 \\Rightarrow x = 17$</p>
+                        <p>두 홀수: 17, 19</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-coordinate',
+                title: '좌표평면과 그래프',
+                content: `
+                    <h2>좌표평면과 그래프</h2>
+
+                    <h3>1. 좌표평면</h3>
+                    <p>수직선 두 개를 원점에서 수직으로 교차한 평면을 <strong>좌표평면</strong>이라 합니다.</p>
+                    <p>가로 축: $x$축(횡축), 세로 축: $y$축(종축)</p>
+                    <div class="math-display">
+                        점 $P(a, b)$: $x$좌표 $a$, $y$좌표 $b$
+                    </div>
+
+                    <h3>2. 사분면</h3>
+                    <div class="example-box">
+                        <p>1사분면: $x > 0$, $y > 0$</p>
+                        <p>2사분면: $x < 0$, $y > 0$</p>
+                        <p>3사분면: $x < 0$, $y < 0$</p>
+                        <p>4사분면: $x > 0$, $y < 0$</p>
+                    </div>
+
+                    <h3>3. 정비례와 반비례</h3>
+                    <p><strong>정비례</strong>: $y = ax$ ($a \\neq 0$) — 원점을 지나는 직선</p>
+                    <p><strong>반비례</strong>: $y = \\frac{a}{x}$ ($a \\neq 0$) — 쌍곡선</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$y = 3x$: $x$가 2배, 3배가 되면 $y$도 2배, 3배</p>
+                        <p>$y = \\frac{6}{x}$: $x$가 2배가 되면 $y$는 $\\frac{1}{2}$배</p>
+                    </div>
+                `
+            }
+        ]
+    },
+
+    'math-mid-1-2': {
+        title: '중1-2 (기하/통계)',
+        chapters: [
+            {
+                id: 'mid1-basic-figure',
+                title: '기본 도형',
+                content: `
+                    <h2>기본 도형</h2>
+
+                    <h3>1. 점, 선, 면</h3>
+                    <p><strong>점</strong>: 위치만 나타내며 크기가 없습니다.</p>
+                    <p><strong>선</strong>: 점이 움직인 자취. 직선, 반직선, 선분으로 구분합니다.</p>
+                    <p><strong>면</strong>: 선이 움직인 자취.</p>
+                    <div class="math-display">
+                        직선 $AB$: 두 점 $A$, $B$를 지나며 양쪽으로 무한히 뻗은 선<br>
+                        반직선 $AB$: 점 $A$에서 시작하여 $B$ 방향으로 뻗은 선<br>
+                        선분 $AB$: 두 점 $A$, $B$ 사이의 한정된 부분
+                    </div>
+
+                    <h3>2. 각</h3>
+                    <p><strong>각</strong>: 한 점에서 출발하는 두 반직선이 이루는 도형</p>
+                    <div class="example-box">
+                        <p>예각: $0° < \\angle A < 90°$</p>
+                        <p>직각: $\\angle A = 90°$</p>
+                        <p>둔각: $90° < \\angle A < 180°$</p>
+                        <p>평각: $\\angle A = 180°$</p>
+                    </div>
+
+                    <h3>3. 수직과 평행</h3>
+                    <p><strong>수직</strong>: 두 직선이 만나서 직각을 이룰 때</p>
+                    <p><strong>평행</strong>: 두 직선이 만나지 않을 때 ($l \\parallel m$)</p>
+
+                    <h3>4. 동위각과 엇각</h3>
+                    <p>두 직선이 한 직선과 만날 때:</p>
+                    <p><strong>동위각</strong>: 같은 위치에 있는 각 → 두 직선이 평행이면 동위각이 같다</p>
+                    <p><strong>엇각</strong>: 엇갈린 위치에 있는 각 → 두 직선이 평행이면 엇각이 같다</p>
+                `
+            },
+            {
+                id: 'mid1-plane-figure',
+                title: '평면도형',
+                content: `
+                    <h2>평면도형</h2>
+
+                    <h3>1. 다각형</h3>
+                    <p>$n$각형의 내각의 합: $180° \\times (n-2)$</p>
+                    <p>정$n$각형의 한 내각: $\\frac{180°(n-2)}{n}$</p>
+                    <p>다각형의 외각의 합: 항상 $360°$</p>
+                    <div class="example-box">
+                        <h4>주요 다각형 내각의 합</h4>
+                        <p>삼각형: $180°$</p>
+                        <p>사각형: $360°$</p>
+                        <p>오각형: $540°$</p>
+                        <p>육각형: $720°$</p>
+                    </div>
+
+                    <h3>2. 원</h3>
+                    <p>원의 둘레(원주): $2\\pi r$</p>
+                    <p>원의 넓이: $\\pi r^2$</p>
+                    <p>호의 길이: $\\frac{\\theta}{360°} \\times 2\\pi r$</p>
+                    <p>부채꼴의 넓이: $\\frac{\\theta}{360°} \\times \\pi r^2 = \\frac{1}{2}lr$ (단, $l$: 호의 길이)</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>반지름 6cm, 중심각 120°인 부채꼴의 호의 길이와 넓이:</p>
+                        <p>호의 길이: $\\frac{120}{360} \\times 2\\pi \\times 6 = 4\\pi$ cm</p>
+                        <p>넓이: $\\frac{120}{360} \\times \\pi \\times 36 = 12\\pi$ cm²</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-solid-figure',
+                title: '입체도형',
+                content: `
+                    <h2>입체도형</h2>
+
+                    <h3>1. 다면체</h3>
+                    <p>평면으로만 둘러싸인 입체도형. 면의 수에 따라 사면체, 오면체, …로 부릅니다.</p>
+                    <p><strong>정다면체</strong>: 정삼각형, 정사각형 등 합동인 정다각형으로만 이루어진 다면체 (5종류)</p>
+                    <div class="example-box">
+                        <p>정사면체, 정육면체, 정팔면체, 정십이면체, 정이십면체</p>
+                    </div>
+
+                    <h3>2. 회전체</h3>
+                    <p>평면도형을 한 직선(회전축)을 중심으로 1회전하여 만든 입체도형</p>
+                    <p>직사각형 → 원기둥, 직각삼각형 → 원뿔, 반원 → 구</p>
+
+                    <h3>3. 겉넓이와 부피</h3>
+                    <div class="math-display">
+                        <p>원기둥: 겉넓이 $= 2\\pi r^2 + 2\\pi r h$, 부피 $= \\pi r^2 h$</p>
+                        <p>원뿔: 겉넓이 $= \\pi r^2 + \\pi r l$, 부피 $= \\frac{1}{3}\\pi r^2 h$</p>
+                        <p>구: 겉넓이 $= 4\\pi r^2$, 부피 $= \\frac{4}{3}\\pi r^3$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid1-statistics',
+                title: '통계',
+                content: `
+                    <h2>통계</h2>
+
+                    <h3>1. 대푯값</h3>
+                    <p><strong>평균(mean)</strong>: 자료의 값을 모두 더한 후 자료의 수로 나눈 값</p>
+                    <p><strong>중앙값(median)</strong>: 자료를 크기 순서로 나열했을 때 가운데 값</p>
+                    <p><strong>최빈값(mode)</strong>: 자료 중 가장 자주 나타나는 값</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>자료: 2, 5, 3, 7, 3, 8, 3</p>
+                        <p>평균: $(2+5+3+7+3+8+3) \\div 7 = 31/7 \\approx 4.4$</p>
+                        <p>중앙값: 정렬 후 → 2, 3, 3, <strong>3</strong>, 5, 7, 8 → 3</p>
+                        <p>최빈값: 3 (3번 등장)</p>
+                    </div>
+
+                    <h3>2. 산포도 – 분산과 표준편차</h3>
+                    <p><strong>편차</strong>: (각 값) − (평균)</p>
+                    <p><strong>분산</strong>: 편차의 제곱의 평균</p>
+                    <p><strong>표준편차</strong>: $\\sqrt{\\text{분산}}$</p>
+
+                    <h3>3. 도수분포표와 히스토그램</h3>
+                    <p>자료를 일정한 구간(계급)으로 나누어 각 계급에 속하는 자료의 수(도수)를 나타낸 표를 <strong>도수분포표</strong>라 합니다.</p>
+                    <p>이를 막대그래프로 나타낸 것이 <strong>히스토그램</strong>입니다.</p>
+                `
+            }
+        ]
+    },
+
+    'math-mid-2-1': {
+        title: '중2-1 (대수)',
+        chapters: [
+            {
+                id: 'mid2-rational-decimal',
+                title: '유리수와 소수',
+                content: `
+                    <h2>유리수와 소수</h2>
+
+                    <h3>1. 유한소수와 무한소수</h3>
+                    <p><strong>유한소수</strong>: 소수점 아래 0이 아닌 숫자가 유한 번 나오는 소수</p>
+                    <p><strong>무한소수</strong>: 소수점 아래 숫자가 무한히 계속되는 소수</p>
+
+                    <h3>2. 순환소수</h3>
+                    <p>소수점 아래 어떤 자리에서부터 일정한 숫자의 배열이 한없이 반복되는 무한소수를 <strong>순환소수</strong>라 합니다.</p>
+                    <div class="math-display">
+                        $0.\\dot{3} = 0.333\\cdots = \\frac{1}{3}$<br>
+                        $0.1\\dot{4}\\dot{2} = 0.14242\\cdots$
+                    </div>
+
+                    <h3>3. 유리수와 순환소수의 관계</h3>
+                    <p>유리수 $\\frac{a}{b}$ (기약분수)를 소수로 나타내면:</p>
+                    <p>분모의 소인수가 2 또는 5뿐이면 → 유한소수</p>
+                    <p>분모에 2 또는 5 이외의 소인수가 있으면 → 순환소수</p>
+                    <div class="example-box">
+                        <h4>순환소수를 분수로</h4>
+                        <p>$x = 0.\\dot{3}$이라 하면 $10x = 3.\\dot{3}$이므로 $9x = 3$, $x = \\frac{1}{3}$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-expression-calc',
+                title: '식의 계산',
+                content: `
+                    <h2>식의 계산</h2>
+
+                    <h3>1. 지수법칙</h3>
+                    <div class="math-display">
+                        <p>$a^m \\times a^n = a^{m+n}$</p>
+                        <p>$(a^m)^n = a^{mn}$</p>
+                        <p>$(ab)^n = a^n b^n$</p>
+                        <p>$a^m \\div a^n = a^{m-n}$ ($m > n$)</p>
+                    </div>
+
+                    <h3>2. 단항식의 곱셈과 나눗셈</h3>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$3a^2 \\times 4ab = 12a^3b$</p>
+                        <p>$12x^3y^2 \\div 4xy = 3x^2y$</p>
+                    </div>
+
+                    <h3>3. 다항식의 덧셈과 뺄셈</h3>
+                    <p>동류항끼리 계산합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$(3x^2 - 2x + 1) + (x^2 + 4x - 3) = 4x^2 + 2x - 2$</p>
+                        <p>$(5a - 3b) - (2a + b) = 3a - 4b$</p>
+                    </div>
+
+                    <h3>4. 단항식과 다항식의 곱셈</h3>
+                    <div class="math-display">
+                        $a(b + c) = ab + ac$
+                    </div>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$2x(3x - y + 4) = 6x^2 - 2xy + 8x$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-inequality',
+                title: '일차부등식',
+                content: `
+                    <h2>일차부등식</h2>
+
+                    <h3>1. 부등식의 성질</h3>
+                    <div class="math-display">
+                        <p>$a < b \\Rightarrow a + c < b + c$</p>
+                        <p>$a < b$이고 $c > 0$이면 $ac < bc$</p>
+                        <p>$a < b$이고 $c < 0$이면 $ac > bc$ (부등호 방향 바뀜!)</p>
+                    </div>
+
+                    <h3>2. 일차부등식의 풀이</h3>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$2x - 3 < 5$</p>
+                        <p>$2x < 8$</p>
+                        <p>$x < 4$</p>
+                    </div>
+                    <div class="example-box">
+                        <h4>음수로 나눌 때 주의</h4>
+                        <p>$-3x > 9$</p>
+                        <p>양변을 $-3$으로 나누면 부등호 방향이 바뀌어:</p>
+                        <p>$x < -3$</p>
+                    </div>
+
+                    <h3>3. 연립부등식</h3>
+                    <p>두 부등식을 동시에 만족하는 $x$의 범위를 구합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$x + 1 > 3$이고 $2x < 10$</p>
+                        <p>$x > 2$이고 $x < 5$</p>
+                        <p>$\\therefore 2 < x < 5$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-simultaneous',
+                title: '연립일차방정식',
+                content: `
+                    <h2>연립일차방정식</h2>
+
+                    <h3>1. 연립방정식</h3>
+                    <p>미지수가 2개인 일차방정식 두 개를 묶어 놓은 것을 <strong>연립방정식</strong>이라 합니다.</p>
+
+                    <h3>2. 가감법</h3>
+                    <p>두 방정식을 더하거나 빼서 미지수를 하나 소거합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$\\begin{cases} x + y = 5 \\\\ x - y = 1 \\end{cases}$</p>
+                        <p>두 식을 더하면: $2x = 6 \\Rightarrow x = 3$</p>
+                        <p>$x = 3$을 첫 번째 식에 대입: $3 + y = 5 \\Rightarrow y = 2$</p>
+                    </div>
+
+                    <h3>3. 대입법</h3>
+                    <p>한 방정식을 특정 미지수로 나타내어 다른 방정식에 대입합니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$\\begin{cases} y = 2x - 1 \\\\ 3x + y = 9 \\end{cases}$</p>
+                        <p>$3x + (2x-1) = 9 \\Rightarrow 5x = 10 \\Rightarrow x = 2$, $y = 3$</p>
+                    </div>
+
+                    <h3>4. 특수한 경우</h3>
+                    <p><strong>해가 없는 경우</strong>: 두 직선이 평행 (불능)</p>
+                    <p><strong>해가 무수히 많은 경우</strong>: 두 직선이 일치 (부정)</p>
+                `
+            },
+            {
+                id: 'mid2-linear-function',
+                title: '일차함수',
+                content: `
+                    <h2>일차함수</h2>
+
+                    <h3>1. 일차함수의 정의</h3>
+                    <p>$y = ax + b$ ($a \\neq 0$) 꼴의 함수를 <strong>일차함수</strong>라 합니다.</p>
+                    <p>$a$: 기울기, $b$: $y$절편</p>
+
+                    <h3>2. 기울기</h3>
+                    <div class="math-display">
+                        기울기 $= \\frac{y \\text{의 증가량}}{x \\text{의 증가량}} = \\frac{y_2 - y_1}{x_2 - x_1}$
+                    </div>
+
+                    <h3>3. 그래프의 특성</h3>
+                    <div class="example-box">
+                        <p>$a > 0$: 오른쪽 위로 향하는 직선 (증가함수)</p>
+                        <p>$a < 0$: 오른쪽 아래로 향하는 직선 (감소함수)</p>
+                        <p>$|a|$가 클수록 기울기가 급함</p>
+                        <p>$b > 0$: $y$축의 양의 부분과 만남</p>
+                        <p>$b < 0$: $y$축의 음의 부분과 만남</p>
+                    </div>
+
+                    <h3>4. 일차함수와 연립방정식</h3>
+                    <p>연립방정식의 해 = 두 일차함수 그래프의 교점의 좌표</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$y = 2x + 1$과 $y = -x + 4$의 교점:</p>
+                        <p>$2x + 1 = -x + 4 \\Rightarrow 3x = 3 \\Rightarrow x = 1$, $y = 3$</p>
+                        <p>교점: $(1, 3)$</p>
+                    </div>
+                `
+            }
+        ]
+    },
+
+    'math-mid-2-2': {
+        title: '중2-2 (기하/확률)',
+        chapters: [
+            {
+                id: 'mid2-triangle-property',
+                title: '삼각형의 성질',
+                content: `
+                    <h2>삼각형의 성질</h2>
+
+                    <h3>1. 이등변삼각형</h3>
+                    <p>두 변의 길이가 같은 삼각형을 <strong>이등변삼각형</strong>이라 합니다.</p>
+                    <div class="math-display">
+                        이등변삼각형에서 꼭지각의 이등분선은 밑변을 수직이등분합니다.
+                    </div>
+                    <p>성질: 두 밑각의 크기가 같습니다. ($\\angle B = \\angle C$)</p>
+
+                    <h3>2. 삼각형의 합동조건</h3>
+                    <div class="example-box">
+                        <p><strong>SSS</strong>: 세 쌍의 대응변의 길이가 각각 같을 때</p>
+                        <p><strong>SAS</strong>: 두 쌍의 대응변과 그 끼인각이 각각 같을 때</p>
+                        <p><strong>ASA</strong>: 두 쌍의 대응각과 그 끼인변이 각각 같을 때</p>
+                    </div>
+
+                    <h3>3. 직각삼각형의 합동조건</h3>
+                    <div class="example-box">
+                        <p><strong>RHA</strong>: 빗변과 한 예각이 각각 같을 때</p>
+                        <p><strong>RHS</strong>: 빗변과 다른 한 변이 각각 같을 때</p>
+                    </div>
+
+                    <h3>4. 삼각형의 외심과 내심</h3>
+                    <p><strong>외심</strong>: 세 변의 수직이등분선의 교점. 세 꼭짓점까지의 거리가 같음</p>
+                    <p><strong>내심</strong>: 세 내각의 이등분선의 교점. 세 변까지의 거리가 같음</p>
+                    <div class="math-display">
+                        내심에서: $\\angle BIC = 90° + \\frac{1}{2}\\angle A$
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-quadrilateral-property',
+                title: '사각형의 성질',
+                content: `
+                    <h2>사각형의 성질</h2>
+
+                    <h3>1. 평행사변형</h3>
+                    <p>두 쌍의 대변이 각각 평행한 사각형</p>
+                    <div class="example-box">
+                        <p>대변의 길이가 같다, 대각의 크기가 같다</p>
+                        <p>두 대각선이 서로 이등분한다</p>
+                    </div>
+
+                    <h3>2. 특수한 평행사변형</h3>
+                    <div class="math-display">
+                        <p>직사각형: 네 각이 모두 직각 → 두 대각선의 길이가 같고 서로 이등분</p>
+                        <p>마름모: 네 변의 길이가 같다 → 두 대각선이 수직이등분</p>
+                        <p>정사각형: 직사각형 + 마름모의 성질 모두</p>
+                    </div>
+
+                    <h3>3. 등변사다리꼴</h3>
+                    <p>두 다리의 길이가 같은 사다리꼴</p>
+                    <p>성질: 두 대각선의 길이가 같다</p>
+
+                    <h3>4. 평행사변형이 되는 조건</h3>
+                    <div class="example-box">
+                        <p>① 두 쌍의 대변이 각각 평행</p>
+                        <p>② 두 쌍의 대변의 길이가 각각 같음</p>
+                        <p>③ 두 쌍의 대각의 크기가 각각 같음</p>
+                        <p>④ 두 대각선이 서로 이등분</p>
+                        <p>⑤ 한 쌍의 대변이 평행하고 길이가 같음</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-similarity',
+                title: '도형의 닮음',
+                content: `
+                    <h2>도형의 닮음</h2>
+
+                    <h3>1. 닮음</h3>
+                    <p>한 도형을 일정한 비율로 확대하거나 축소한 것이 다른 도형과 합동일 때 두 도형은 <strong>닮음</strong>이라 합니다.</p>
+                    <p>닮음비 $m:n$이면: 넓이비 $= m^2 : n^2$, 부피비 $= m^3 : n^3$</p>
+
+                    <h3>2. 삼각형의 닮음조건</h3>
+                    <div class="example-box">
+                        <p><strong>SSS</strong> 닮음: 세 쌍의 대응변의 비가 같을 때</p>
+                        <p><strong>SAS</strong> 닮음: 두 쌍의 대응변의 비가 같고 그 끼인각이 같을 때</p>
+                        <p><strong>AA</strong> 닮음: 두 쌍의 대응각의 크기가 각각 같을 때</p>
+                    </div>
+
+                    <h3>3. 삼각형에서의 비례 관계</h3>
+                    <p><strong>중선정리</strong>, <strong>삼각형의 무게중심</strong>: 세 중선의 교점, 각 중선을 $2:1$로 나눔</p>
+                    <div class="math-display">
+                        평행선과 비: $DE \\parallel BC$이면 $AD:DB = AE:EC$
+                    </div>
+
+                    <h3>4. 피타고라스 정리</h3>
+                    <div class="math-display">
+                        직각삼각형에서 $a^2 + b^2 = c^2$ (단, $c$: 빗변)
+                    </div>
+                    <div class="example-box">
+                        <h4>피타고라스 수</h4>
+                        <p>3, 4, 5 / 5, 12, 13 / 8, 15, 17</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid2-probability',
+                title: '확률',
+                content: `
+                    <h2>확률</h2>
+
+                    <h3>1. 경우의 수</h3>
+                    <p><strong>합의 법칙</strong>: 사건 A와 B가 동시에 일어나지 않을 때, A 또는 B가 일어나는 경우의 수 = (A의 경우의 수) + (B의 경우의 수)</p>
+                    <p><strong>곱의 법칙</strong>: A가 일어나는 방법이 $m$가지, 그 각각에 대해 B가 $n$가지이면 A, B가 동시에 일어나는 경우의 수 = $m \\times n$</p>
+
+                    <h3>2. 확률의 정의</h3>
+                    <div class="math-display">
+                        $P(A) = \\frac{\\text{사건 } A \\text{가 일어나는 경우의 수}}{\\text{전체 경우의 수}}$
+                    </div>
+
+                    <h3>3. 확률의 성질</h3>
+                    <div class="example-box">
+                        <p>$0 \\leq P(A) \\leq 1$</p>
+                        <p>반드시 일어나는 사건: $P = 1$</p>
+                        <p>절대 일어나지 않는 사건: $P = 0$</p>
+                    </div>
+
+                    <h3>4. 확률의 계산</h3>
+                    <p><strong>여사건의 확률</strong>: $P(A^c) = 1 - P(A)$</p>
+                    <p><strong>덧셈정리</strong>: $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$</p>
+                    <p><strong>독립사건</strong>: $P(A \\cap B) = P(A) \\times P(B)$</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>동전 두 개를 던질 때 적어도 하나가 앞면이 나올 확률:</p>
+                        <p>여사건 이용: $1 - P(\\text{모두 뒷면}) = 1 - \\frac{1}{4} = \\frac{3}{4}$</p>
+                    </div>
+                `
+            }
+        ]
+    },
+
+    'math-mid-3-1': {
+        title: '중3-1 (대수)',
+        chapters: [
+            {
+                id: 'mid3-sqrt-real',
+                title: '제곱근과 실수',
+                content: `
+                    <h2>제곱근과 실수</h2>
+
+                    <h3>1. 제곱근</h3>
+                    <p>$x^2 = a$를 만족하는 $x$를 $a$의 <strong>제곱근</strong>이라 합니다.</p>
+                    <div class="math-display">
+                        $a > 0$일 때: 제곱근은 $\\sqrt{a}$와 $-\\sqrt{a}$ (두 개)<br>
+                        $a = 0$일 때: 제곱근은 $0$ (한 개)<br>
+                        $a < 0$일 때: 실수 범위에서 제곱근 없음
+                    </div>
+
+                    <h3>2. 제곱근의 성질</h3>
+                    <div class="math-display">
+                        <p>$(\\sqrt{a})^2 = a$ ($a \\geq 0$)</p>
+                        <p>$\\sqrt{a^2} = |a|$</p>
+                        <p>$\\sqrt{a} \\times \\sqrt{b} = \\sqrt{ab}$ ($a, b > 0$)</p>
+                        <p>$\\frac{\\sqrt{a}}{\\sqrt{b}} = \\sqrt{\\frac{a}{b}}$ ($a > 0$, $b > 0$)</p>
+                    </div>
+
+                    <h3>3. 무리수와 실수</h3>
+                    <p><strong>무리수</strong>: $\\sqrt{2}$, $\\sqrt{3}$, $\\pi$처럼 유리수가 아닌 수 (순환하지 않는 무한소수)</p>
+                    <p><strong>실수</strong>: 유리수와 무리수를 통틀어 실수라 합니다.</p>
+                    <div class="example-box">
+                        <p>실수의 분류: 유리수(정수, 유한소수, 순환소수) + 무리수</p>
+                        <p>실수는 수직선 위의 모든 점에 대응합니다.</p>
+                    </div>
+
+                    <h3>4. 제곱근의 계산</h3>
+                    <div class="example-box">
+                        <h4>분모의 유리화</h4>
+                        <p>$\\frac{1}{\\sqrt{3}} = \\frac{1 \\times \\sqrt{3}}{\\sqrt{3} \\times \\sqrt{3}} = \\frac{\\sqrt{3}}{3}$</p>
+                        <p>$\\sqrt{12} = \\sqrt{4 \\times 3} = 2\\sqrt{3}$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid3-polynomial-factor',
+                title: '다항식의 곱셈과 인수분해',
+                content: `
+                    <h2>다항식의 곱셈과 인수분해</h2>
+
+                    <h3>1. 곱셈 공식</h3>
+                    <div class="math-display">
+                        <p>$(a+b)^2 = a^2 + 2ab + b^2$</p>
+                        <p>$(a-b)^2 = a^2 - 2ab + b^2$</p>
+                        <p>$(a+b)(a-b) = a^2 - b^2$</p>
+                        <p>$(x+a)(x+b) = x^2 + (a+b)x + ab$</p>
+                        <p>$(ax+b)(cx+d) = acx^2 + (ad+bc)x + bd$</p>
+                    </div>
+
+                    <h3>2. 인수분해 공식</h3>
+                    <div class="math-display">
+                        <p>$a^2 + 2ab + b^2 = (a+b)^2$</p>
+                        <p>$a^2 - 2ab + b^2 = (a-b)^2$</p>
+                        <p>$a^2 - b^2 = (a+b)(a-b)$</p>
+                        <p>$x^2 + (a+b)x + ab = (x+a)(x+b)$</p>
+                    </div>
+
+                    <h3>3. 인수분해 활용</h3>
+                    <div class="example-box">
+                        <h4>예제: $x^2 - 5x + 6$ 인수분해</h4>
+                        <p>합이 $-5$, 곱이 $6$인 두 수: $-2$와 $-3$</p>
+                        <p>$(x-2)(x-3)$</p>
+                    </div>
+                    <div class="example-box">
+                        <h4>예제: $2x^2 + 5x + 3$ 인수분해</h4>
+                        <p>$2x^2 + 5x + 3 = (2x+3)(x+1)$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid3-quadratic-equation',
+                title: '이차방정식',
+                content: `
+                    <h2>이차방정식</h2>
+
+                    <h3>1. 이차방정식의 풀이 – 인수분해</h3>
+                    <p>$ax^2 + bx + c = 0$을 인수분해하여 풉니다.</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$x^2 - 5x + 6 = 0$</p>
+                        <p>$(x-2)(x-3) = 0$</p>
+                        <p>$x = 2$ 또는 $x = 3$</p>
+                    </div>
+
+                    <h3>2. 완전제곱식 이용</h3>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$x^2 - 4x - 1 = 0$</p>
+                        <p>$(x-2)^2 = 5$</p>
+                        <p>$x = 2 \\pm \\sqrt{5}$</p>
+                    </div>
+
+                    <h3>3. 근의 공식</h3>
+                    <div class="math-display">
+                        $ax^2 + bx + c = 0$의 근: $x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$
+                    </div>
+
+                    <h3>4. 판별식</h3>
+                    <p><strong>판별식</strong> $D = b^2 - 4ac$</p>
+                    <div class="example-box">
+                        <p>$D > 0$: 서로 다른 두 실근</p>
+                        <p>$D = 0$: 중근 (두 근이 같음)</p>
+                        <p>$D < 0$: 실근 없음 (허근)</p>
+                    </div>
+
+                    <h3>5. 근과 계수의 관계</h3>
+                    <p>두 근을 $\\alpha$, $\\beta$라 하면:</p>
+                    <div class="math-display">
+                        $\\alpha + \\beta = -\\frac{b}{a}$, $\\quad \\alpha \\beta = \\frac{c}{a}$
+                    </div>
+                `
+            },
+            {
+                id: 'mid3-quadratic-function',
+                title: '이차함수',
+                content: `
+                    <h2>이차함수</h2>
+
+                    <h3>1. 이차함수의 정의</h3>
+                    <p>$y = ax^2 + bx + c$ ($a \\neq 0$) 꼴의 함수를 <strong>이차함수</strong>라 합니다.</p>
+
+                    <h3>2. 이차함수의 그래프</h3>
+                    <p>$y = ax^2$: 꼭짓점이 원점인 포물선</p>
+                    <div class="example-box">
+                        <p>$a > 0$: 아래로 볼록 (최솟값 존재)</p>
+                        <p>$a < 0$: 위로 볼록 (최댓값 존재)</p>
+                        <p>$|a|$가 클수록 폭이 좁아짐</p>
+                    </div>
+
+                    <h3>3. 표준형</h3>
+                    <p>꼭짓점이 $(p, q)$인 이차함수: $y = a(x-p)^2 + q$</p>
+                    <div class="math-display">
+                        축의 방정식: $x = p$, $\\quad$ 꼭짓점: $(p, q)$
+                    </div>
+
+                    <h3>4. 일반형 → 표준형 변환 (완전제곱식)</h3>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>$y = x^2 - 4x + 1$</p>
+                        <p>$= (x-2)^2 - 4 + 1$</p>
+                        <p>$= (x-2)^2 - 3$</p>
+                        <p>꼭짓점: $(2, -3)$, 축: $x = 2$</p>
+                    </div>
+
+                    <h3>5. 이차함수와 이차방정식의 관계</h3>
+                    <p>$y = ax^2 + bx + c$의 그래프와 $x$축의 교점의 $x$좌표</p>
+                    <p>= 이차방정식 $ax^2 + bx + c = 0$의 근</p>
+                `
+            }
+        ]
+    },
+
+    'math-mid-3-2': {
+        title: '중3-2 (기하/통계)',
+        chapters: [
+            {
+                id: 'mid3-trigonometry',
+                title: '삼각비',
+                content: `
+                    <h2>삼각비</h2>
+
+                    <h3>1. 삼각비의 정의</h3>
+                    <p>직각삼각형 $ABC$에서 $\\angle C = 90°$일 때:</p>
+                    <div class="math-display">
+                        $\\sin A = \\frac{\\text{높이}}{\\text{빗변}} = \\frac{BC}{AB}$<br><br>
+                        $\\cos A = \\frac{\\text{밑변}}{\\text{빗변}} = \\frac{AC}{AB}$<br><br>
+                        $\\tan A = \\frac{\\text{높이}}{\\text{밑변}} = \\frac{BC}{AC}$
+                    </div>
+
+                    <h3>2. 특수각의 삼각비</h3>
+                    <div class="example-box">
+                        <p>$\\sin 30° = \\frac{1}{2}$, $\\cos 30° = \\frac{\\sqrt{3}}{2}$, $\\tan 30° = \\frac{\\sqrt{3}}{3}$</p>
+                        <p>$\\sin 45° = \\frac{\\sqrt{2}}{2}$, $\\cos 45° = \\frac{\\sqrt{2}}{2}$, $\\tan 45° = 1$</p>
+                        <p>$\\sin 60° = \\frac{\\sqrt{3}}{2}$, $\\cos 60° = \\frac{1}{2}$, $\\tan 60° = \\sqrt{3}$</p>
+                    </div>
+
+                    <h3>3. 삼각비의 활용</h3>
+                    <p><strong>사인 법칙</strong>: $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R$</p>
+                    <p><strong>코사인 법칙</strong>: $a^2 = b^2 + c^2 - 2bc\\cos A$</p>
+                    <p><strong>삼각형의 넓이</strong>: $S = \\frac{1}{2}ab\\sin C$</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>두 변의 길이가 6, 8이고 끼인각이 30°인 삼각형의 넓이:</p>
+                        <p>$S = \\frac{1}{2} \\times 6 \\times 8 \\times \\sin 30° = 24 \\times \\frac{1}{2} = 12$</p>
+                    </div>
+                `
+            },
+            {
+                id: 'mid3-circle-property',
+                title: '원의 성질',
+                content: `
+                    <h2>원의 성질</h2>
+
+                    <h3>1. 원과 직선</h3>
+                    <p><strong>현</strong>: 원 위의 두 점을 잇는 선분</p>
+                    <p>원의 중심에서 현에 내린 수선은 그 현을 이등분합니다.</p>
+
+                    <h3>2. 원의 접선</h3>
+                    <p>원의 접선은 접점을 지나는 반지름에 수직입니다.</p>
+                    <p>원 밖의 한 점에서 그은 두 접선의 길이는 같습니다.</p>
+
+                    <h3>3. 원주각</h3>
+                    <p><strong>원주각</strong> = 호에 대한 중심각의 절반</p>
+                    <div class="math-display">
+                        같은 호에 대한 원주각의 크기는 모두 같습니다.
+                    </div>
+                    <div class="example-box">
+                        <p>반원에 대한 원주각 = 90°</p>
+                    </div>
+
+                    <h3>4. 원에 내접하는 사각형</h3>
+                    <div class="math-display">
+                        원에 내접하는 사각형에서 대각의 합 = 180°
+                    </div>
+
+                    <h3>5. 접선과 현이 이루는 각</h3>
+                    <p>접선과 현이 이루는 각 = 그 현에 대한 원주각</p>
+                `
+            },
+            {
+                id: 'mid3-statistics2',
+                title: '통계',
+                content: `
+                    <h2>통계 (중3)</h2>
+
+                    <h3>1. 대푯값 복습</h3>
+                    <p>평균, 중앙값, 최빈값을 상황에 따라 적절히 선택합니다.</p>
+                    <div class="example-box">
+                        <p>극단적인 값이 있을 때: 중앙값이 더 적절</p>
+                        <p>가장 자주 나타나는 값이 중요할 때: 최빈값이 더 적절</p>
+                    </div>
+
+                    <h3>2. 산포도</h3>
+                    <p><strong>분산</strong>: $\\sigma^2 = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2$</p>
+                    <p><strong>표준편차</strong>: $\\sigma = \\sqrt{\\sigma^2}$</p>
+                    <div class="example-box">
+                        <h4>예제</h4>
+                        <p>자료: 2, 4, 4, 6 (평균 = 4)</p>
+                        <p>분산: $\\frac{(2-4)^2 + (4-4)^2 + (4-4)^2 + (6-4)^2}{4} = \\frac{4+0+0+4}{4} = 2$</p>
+                        <p>표준편차: $\\sqrt{2}$</p>
+                    </div>
+
+                    <h3>3. 상관관계</h3>
+                    <p>두 변량 사이의 관계를 <strong>산점도</strong>로 나타냅니다.</p>
+                    <div class="example-box">
+                        <p><strong>양의 상관관계</strong>: 한 변량이 증가하면 다른 변량도 증가</p>
+                        <p><strong>음의 상관관계</strong>: 한 변량이 증가하면 다른 변량은 감소</p>
+                        <p><strong>상관관계 없음</strong>: 두 변량 사이에 뚜렷한 관계가 없음</p>
+                    </div>
+
+                    <h3>4. 상관계수</h3>
+                    <p>상관관계의 정도를 수치로 나타낸 것. $-1 \\leq r \\leq 1$</p>
+                    <p>$r = 1$: 완전한 양의 상관, $r = -1$: 완전한 음의 상관, $r = 0$: 상관관계 없음</p>
+                `
+            }
+        ]
+    },
+
+    // ========== 고등수학 (기존) ==========
     'math-high-1': {
         title: '수학 상',
         chapters: [
@@ -3736,6 +4640,210 @@ const mathData = {
 
 // 문제 데이터베이스
 const problemData = {
+    'math-mid-1-1': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid1-prime-factorization',
+            problem: '$72$를 소인수분해하시오.',
+            answer: '$72 = 2^3 \\times 3^2$',
+            solution: '$72 = 8 \\times 9 = 2^3 \\times 3^2$'
+        },
+        {
+            id: 2,
+            difficulty: 'easy',
+            topic: 'mid1-prime-factorization',
+            problem: '$36$의 약수의 개수를 구하시오.',
+            answer: '$9$개',
+            solution: '$36 = 2^2 \\times 3^2$이므로 약수의 개수 $= (2+1)(2+1) = 9$'
+        },
+        {
+            id: 3,
+            difficulty: 'medium',
+            topic: 'mid1-integer-rational',
+            problem: '$(-\\frac{2}{3}) \\times (\\frac{9}{4}) \\div (-\\frac{3}{2})$를 계산하시오.',
+            answer: '$1$',
+            solution: '$(-\\frac{2}{3}) \\times (\\frac{9}{4}) \\times (-\\frac{2}{3}) = \\frac{2 \\times 9 \\times 2}{3 \\times 4 \\times 3} = \\frac{36}{36} = 1$'
+        },
+        {
+            id: 4,
+            difficulty: 'medium',
+            topic: 'mid1-linear-equation',
+            problem: '방정식 $3(x-2) = 2x+1$을 푸시오.',
+            answer: '$x = 7$',
+            solution: '$3x - 6 = 2x + 1 \\Rightarrow x = 7$'
+        },
+        {
+            id: 5,
+            difficulty: 'hard',
+            topic: 'mid1-prime-factorization',
+            problem: '두 수 $A$와 $B$의 최대공약수가 12, 최소공배수가 180일 때, $A \\times B$의 값을 구하시오.',
+            answer: '$2160$',
+            solution: '$A \\times B = \\text{GCD} \\times \\text{LCM} = 12 \\times 180 = 2160$'
+        }
+    ],
+    'math-mid-1-2': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid1-plane-figure',
+            problem: '반지름이 5cm인 원의 넓이를 구하시오.',
+            answer: '$25\\pi$ cm²',
+            solution: '$\\pi r^2 = \\pi \\times 25 = 25\\pi$ cm²'
+        },
+        {
+            id: 2,
+            difficulty: 'medium',
+            topic: 'mid1-solid-figure',
+            problem: '반지름이 3cm인 구의 부피를 구하시오.',
+            answer: '$36\\pi$ cm³',
+            solution: '$\\frac{4}{3}\\pi r^3 = \\frac{4}{3}\\pi \\times 27 = 36\\pi$ cm³'
+        },
+        {
+            id: 3,
+            difficulty: 'easy',
+            topic: 'mid1-basic-figure',
+            problem: '삼각형의 내각의 합은 몇 도인가?',
+            answer: '$180°$',
+            solution: '삼각형의 내각의 합은 항상 $180°$입니다.'
+        }
+    ],
+    'math-mid-2-1': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid2-expression-calc',
+            problem: '$2x^2 \\times 3xy$를 계산하시오.',
+            answer: '$6x^3y$',
+            solution: '$2 \\times 3 \\times x^{2+1} \\times y = 6x^3y$'
+        },
+        {
+            id: 2,
+            difficulty: 'medium',
+            topic: 'mid2-simultaneous',
+            problem: '연립방정식 $\\begin{cases} 2x + y = 7 \\\\ x - y = 2 \\end{cases}$를 푸시오.',
+            answer: '$x = 3$, $y = 1$',
+            solution: '두 식을 더하면 $3x = 9 \\Rightarrow x = 3$. $x = 3$을 대입하면 $y = 1$.'
+        },
+        {
+            id: 3,
+            difficulty: 'medium',
+            topic: 'mid2-linear-function',
+            problem: '두 점 $(1, 3)$, $(3, 7)$을 지나는 일차함수의 식을 구하시오.',
+            answer: '$y = 2x + 1$',
+            solution: '기울기 $= \\frac{7-3}{3-1} = 2$. $y = 2x + b$에 $(1, 3)$ 대입: $b = 1$. $y = 2x + 1$'
+        },
+        {
+            id: 4,
+            difficulty: 'hard',
+            topic: 'mid2-inequality',
+            problem: '$\\frac{x-1}{2} > \\frac{2x+1}{3}$을 풀어 수직선에 나타내시오.',
+            answer: '$x < -5$',
+            solution: '양변에 6을 곱하면 $3(x-1) > 2(2x+1)$, $3x - 3 > 4x + 2$, $-x > 5$, $x < -5$'
+        }
+    ],
+    'math-mid-2-2': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid2-probability',
+            problem: '한 개의 주사위를 던질 때 3 이상의 눈이 나올 확률을 구하시오.',
+            answer: '$\\frac{2}{3}$',
+            solution: '3 이상의 눈: 3, 4, 5, 6 → 4가지. 확률 $= \\frac{4}{6} = \\frac{2}{3}$'
+        },
+        {
+            id: 2,
+            difficulty: 'medium',
+            topic: 'mid2-similarity',
+            problem: '직각삼각형에서 두 변의 길이가 6, 8일 때 빗변의 길이를 구하시오.',
+            answer: '$10$',
+            solution: '$\\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$'
+        },
+        {
+            id: 3,
+            difficulty: 'hard',
+            topic: 'mid2-probability',
+            problem: '두 개의 주사위를 던질 때 눈의 합이 7이 될 확률을 구하시오.',
+            answer: '$\\frac{1}{6}$',
+            solution: '전체 경우의 수: 36. 합이 7인 경우: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) → 6가지. $P = \\frac{6}{36} = \\frac{1}{6}$'
+        }
+    ],
+    'math-mid-3-1': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid3-sqrt-real',
+            problem: '$\\sqrt{48}$을 간단히 하시오.',
+            answer: '$4\\sqrt{3}$',
+            solution: '$\\sqrt{48} = \\sqrt{16 \\times 3} = 4\\sqrt{3}$'
+        },
+        {
+            id: 2,
+            difficulty: 'easy',
+            topic: 'mid3-polynomial-factor',
+            problem: '$x^2 + 7x + 12$를 인수분해하시오.',
+            answer: '$(x+3)(x+4)$',
+            solution: '합이 7, 곱이 12인 두 수: 3과 4. $(x+3)(x+4)$'
+        },
+        {
+            id: 3,
+            difficulty: 'medium',
+            topic: 'mid3-quadratic-equation',
+            problem: '이차방정식 $x^2 - 4x + 1 = 0$의 근을 구하시오.',
+            answer: '$x = 2 \\pm \\sqrt{3}$',
+            solution: '근의 공식: $x = \\frac{4 \\pm \\sqrt{16-4}}{2} = \\frac{4 \\pm \\sqrt{12}}{2} = 2 \\pm \\sqrt{3}$'
+        },
+        {
+            id: 4,
+            difficulty: 'medium',
+            topic: 'mid3-quadratic-function',
+            problem: '$y = x^2 - 6x + 5$의 꼭짓점의 좌표를 구하시오.',
+            answer: '$(3, -4)$',
+            solution: '$y = (x-3)^2 - 9 + 5 = (x-3)^2 - 4$. 꼭짓점: $(3, -4)$'
+        },
+        {
+            id: 5,
+            difficulty: 'hard',
+            topic: 'mid3-quadratic-equation',
+            problem: '이차방정식 $2x^2 - 3x - 2 = 0$의 두 근의 합과 곱을 구하시오.',
+            answer: '합: $\\frac{3}{2}$, 곱: $-1$',
+            solution: '근과 계수의 관계: 합 $= \\frac{3}{2}$, 곱 $= \\frac{-2}{2} = -1$'
+        }
+    ],
+    'math-mid-3-2': [
+        {
+            id: 1,
+            difficulty: 'easy',
+            topic: 'mid3-trigonometry',
+            problem: '$\\sin 30° + \\cos 60°$의 값을 구하시오.',
+            answer: '$1$',
+            solution: '$\\sin 30° + \\cos 60° = \\frac{1}{2} + \\frac{1}{2} = 1$'
+        },
+        {
+            id: 2,
+            difficulty: 'medium',
+            topic: 'mid3-trigonometry',
+            problem: '두 변의 길이가 4, 6이고 끼인각이 60°인 삼각형의 넓이를 구하시오.',
+            answer: '$6\\sqrt{3}$',
+            solution: '$S = \\frac{1}{2} \\times 4 \\times 6 \\times \\sin 60° = 12 \\times \\frac{\\sqrt{3}}{2} = 6\\sqrt{3}$'
+        },
+        {
+            id: 3,
+            difficulty: 'medium',
+            topic: 'mid3-statistics2',
+            problem: '자료 1, 3, 5, 7, 9의 분산을 구하시오.',
+            answer: '$8$',
+            solution: '평균 = 5. 편차: -4, -2, 0, 2, 4. 분산 $= \\frac{16+4+0+4+16}{5} = 8$'
+        },
+        {
+            id: 4,
+            difficulty: 'hard',
+            topic: 'mid3-circle-property',
+            problem: '원에 내접하는 사각형에서 한 각이 75°일 때 대각의 크기를 구하시오.',
+            answer: '$105°$',
+            solution: '원에 내접하는 사각형에서 대각의 합 = 180°. $180° - 75° = 105°$'
+        }
+    ],
     'math-high-1': [
         {
             id: 1,
